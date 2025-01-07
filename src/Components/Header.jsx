@@ -30,8 +30,8 @@ function Header() {
       });
   }, []);
   return (
-    <div>
-      <header className=" w-[95%] mx-auto py-[20px] flex flex-col gap-[10px]">
+    <div className=" fixed w-full bg-black/80 backdrop-blur-sm z-20">
+      <header className=" w-[95%] mx-auto py-[20px] flex flex-col gap-[10px] ">
         {/* profile section && like  */}
         <section className=" flex items-center justify-between">
           {!currentUser ? (
@@ -50,13 +50,11 @@ function Header() {
                 src={Avatar}
                 alt=""
               />
-              <p>{user.name}</p>
+              <p>{user?.name}</p>
             </div>
           )}
           {/* logo  */}
-          <Link to="likes" className=" text-pink-600">
-            <FavoriteOutlined />
-          </Link>
+          <button className=" font-bold text-[24px]">&#9776;</button>
         </section>
 
         {/* search  */}

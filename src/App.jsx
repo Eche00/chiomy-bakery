@@ -8,6 +8,7 @@ import AddProduct from "./Pages/AddProduct";
 import SignIn from "./Pages/SignIn";
 import SignUp from "./Pages/SignUp";
 import { auth } from "./lib/firebase";
+import { Ham } from "./assets";
 
 function App() {
   const currentUser = auth.currentUser;
@@ -28,17 +29,17 @@ function App() {
             <section className=" flex gap-[10px] items-baseline">
               <img
                 className="w-[100px] h-[100px] rounded-full border-2 border-pink-600"
-                src=""
+                src={Ham}
                 alt=""
               />
               <img
                 className="w-[80px] h-[80px] rounded-full border-2 border-pink-600"
-                src=""
+                src={Ham}
                 alt=""
               />
               <img
                 className="w-[60px] h-[60px] rounded-full border-2 border-pink-600"
-                src=""
+                src={Ham}
                 alt=""
               />
             </section>
@@ -61,7 +62,7 @@ function App() {
           <span className="w-[200px] h-[200px] bg-pink-600 rounded-full absolute bottom-[-50px] right-[-50px]"></span>
         </div>
       ) : (
-        <div className=" bg-black text-white  h-[100vh] relative overflow-hidden">
+        <div className=" bg-black text-white  h-[100vh] overflow-scroll relative ">
           <Router>
             <Routes>
               <Route element={<Body />}>

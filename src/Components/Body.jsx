@@ -7,7 +7,9 @@ function Body() {
   return (
     <div>
       <Header />
-      <Outlet />
+      <div className=" pt-[130px]">
+        <Outlet />
+      </div>
       <Navbar />
     </div>
   );
