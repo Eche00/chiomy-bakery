@@ -1,61 +1,91 @@
 import { AddAPhoto } from "@mui/icons-material";
 import React, { useRef, useState } from "react";
-import {
-  handleCreateProperty,
-  handleImageUpload,
-} from "../lib/uploadFormLogic";
-import { useNavigate } from "react-router-dom";
+import { collection, addDoc } from "firebase/firestore"; // Firestore functions
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"; // Firebase Storage functions
+import { db, storageF } from "../lib/firebase";
 
 function AddProduct() {
   const [formData, setFormData] = useState({
-    image: [],
     name: "",
-    category: "",
     price: "",
+    category: "",
     details: "",
-    name: "",
-    name: "",
+    image: [],
   });
   const [files, setFiles] = useState([]);
-  const navigate = useNavigate();
-
   const imageRef = useRef();
-  const handleChange = (e) => {
-    e.preventDefault();
-    setFormData({ ...formData, [e.target.id]: e.target.value });
-    console.log(formData);
-  };
 
-  // Handle image selection
+  // Handle file selection
   const handleImageChange = (e) => {
-    const file = e.target.files[0]; // Get the first file
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      // Create a storage reference for the image
+      const storageRef = ref(storageF, `images/${selectedFile.name}`);
 
-    if (file) {
-      const imageUrl = URL.createObjectURL(file); // Generate a preview URL
-      setFiles([{ file, url: imageUrl }]); // Save only one file with its URL
+      // Upload file
+      const uploadTask = uploadBytesResumable(storageRef, selectedFile);
 
-      // Update formData with the file
-      setFormData({
-        ...formData,
-        image: [{ file, url: imageUrl }], // Store the file in formData.image
-      });
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          // Track upload progress
+        },
+        (error) => {
+          // Handle errors here
+          console.error(error);
+        },
+        () => {
+          // On successful upload, get the file URL
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            // Set the file and URL in the formData
+            setFormData((prevData) => ({
+              ...prevData,
+              image: [{ file: selectedFile, url: downloadURL }],
+            }));
+            setFiles([{ url: downloadURL, file: selectedFile }]);
+          });
+        }
+      );
     }
   };
 
+  // Handle form field changes
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      // Upload images
-      let updatedFormData = await handleImageUpload(files, formData);
-      console.log(updatedFormData);
 
-      // Create property in Firebase
-      // await handleCreateProperty(updatedFormData);
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    } finally {
+    try {
+      // Save form data (including image URL) to Firestore
+      const docRef = await addDoc(collection(db, "products"), {
+        name: formData.name,
+        price: formData.price,
+        category: formData.category,
+        details: formData.details,
+        imageUrl: formData.image[0].url, // Store the image URL in Firestore
+      });
+
+      console.log("Document written with ID: ", docRef.id);
+      // Reset the form after successful submission
+      setFormData({
+        name: "",
+        price: "",
+        category: "",
+        details: "",
+        image: [],
+      });
+      setFiles([]);
+    } catch (e) {
+      console.error("Error adding document: ", e);
     }
   };
+
   return (
     <div className=" h-screen">
       <main className=" relative  mb-[50px]">
@@ -122,16 +152,27 @@ function AddProduct() {
               className=" bg-transparent border-2 border-pink-600 w-full rounded-full px-5  py-2 outline-none"
               required
               id="category"
+              name="category"
               onChange={handleChange}
               value={formData.category}>
               <option value="" disabled>
                 Select a Category
               </option>
-              <option value="Cake">Cake</option>
-              <option value="Pastries">Pastries</option>
-              <option value="Bread">Bread</option>
-              <option value="Decorations">Decorations</option>
-              <option value="Gift Packs">Gift Packs</option>
+              <option value="Cake" name="Cake">
+                Cake
+              </option>
+              <option value="Pastries" name="Pastries">
+                Pastries
+              </option>
+              <option value="Bread" name="Bread">
+                Bread
+              </option>
+              <option value="Decorations" name="Decorations">
+                Decorations
+              </option>
+              <option value="Gift Packs" name="Gift Packs">
+                Gift Packs
+              </option>
             </select>
           </div>
           <div className=" flex flex-col gap-[5px] my-5">
