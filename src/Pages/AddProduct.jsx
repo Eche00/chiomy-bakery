@@ -1,5 +1,10 @@
 import { AddAPhoto } from "@mui/icons-material";
 import React, { useRef, useState } from "react";
+import {
+  handleCreateProperty,
+  handleImageUpload,
+} from "../lib/uploadFormLogic";
+import { useNavigate } from "react-router-dom";
 
 function AddProduct() {
   const [formData, setFormData] = useState({
@@ -12,6 +17,7 @@ function AddProduct() {
     name: "",
   });
   const [files, setFiles] = useState([]);
+  const navigate = useNavigate();
 
   const imageRef = useRef();
   const handleChange = (e) => {
@@ -31,15 +37,31 @@ function AddProduct() {
       // Update formData with the file
       setFormData({
         ...formData,
-        image: [file], // Store the file in formData.image
+        image: [{ file, url: imageUrl }], // Store the file in formData.image
       });
     }
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Upload images
+      let updatedFormData = await handleImageUpload(files, formData);
+      console.log(updatedFormData);
+
+      // Create property in Firebase
+      // await handleCreateProperty(updatedFormData);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    } finally {
+    }
+  };
   return (
     <div className=" h-screen">
       <main className=" relative  mb-[50px]">
-        <form className="w-[90%] mx-auto overflow-scroll  h-fit pb-[100px]">
+        <form
+          className="w-[90%] mx-auto overflow-scroll  h-fit pb-[100px]"
+          onSubmit={handleSubmit}>
           <div className=" flex items-startgap-[5px] my-5 gap-[10px]">
             <label
               htmlFor="image"
@@ -78,6 +100,7 @@ function AddProduct() {
               id="name"
               onChange={handleChange}
               value={formData.name}
+              required
             />
           </div>
           <div className=" flex flex-col gap-[5px] my-5">
@@ -89,6 +112,7 @@ function AddProduct() {
               onChange={handleChange}
               id="price"
               value={formData.price}
+              required
             />
           </div>
           <div className=" flex flex-col gap-[5px] my-5">
@@ -120,10 +144,13 @@ function AddProduct() {
               cols="30"
               onChange={handleChange}
               rows="10"
+              required
               value={formData.details}></textarea>
           </div>
 
-          <button className="bg-pink-600  py-[15px] text-[16px] font-bold text-white rounded-full my-[10px] w-full">
+          <button
+            className="bg-pink-600  py-[15px] text-[16px] font-bold text-white rounded-full my-[10px] w-full"
+            type="submit">
             Add Product
           </button>
         </form>

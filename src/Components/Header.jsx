@@ -29,6 +29,7 @@ function Header() {
         console.error("Error retrieving document:", error);
       });
   }, []);
+
   return (
     <div className=" fixed w-full bg-black/80 backdrop-blur-sm z-20">
       <header className=" w-[95%] mx-auto py-[20px] flex flex-col gap-[10px] ">
