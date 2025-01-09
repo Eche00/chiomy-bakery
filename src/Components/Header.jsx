@@ -17,12 +17,12 @@ function Header() {
           id: doc.id,
           ...doc.data(),
         }));
-        console.log(userData);
+
         // // filtering the db to check for the id which matches the propertyId
         const filteredUser = userData.find(
           (prop) => prop.id === currentUser.uid
         );
-        console.log(filteredUser);
+
         setUser(filteredUser);
       })
       .catch((error) => {

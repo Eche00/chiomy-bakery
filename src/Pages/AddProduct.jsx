@@ -15,8 +15,17 @@ function AddProduct() {
   const [files, setFiles] = useState([]);
   const imageRef = useRef();
 
+  // error and loading
+  const [error, setError] = useState(false);
+  const [imgError, setImgError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [success, setSucesss] = useState(false);
+
   // Handle file selection
   const handleImageChange = (e) => {
+    setLoading(true);
+    setImgError(false);
     const selectedFile = e.target.files[0];
     if (selectedFile) {
       // Create a storage reference for the image
@@ -28,11 +37,16 @@ function AddProduct() {
       uploadTask.on(
         "state_changed",
         (snapshot) => {
-          // Track upload progress
+          const progressPercentage =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setProgress(progressPercentage.toFixed(0)); // Update progress state
         },
         (error) => {
           // Handle errors here
           console.error(error);
+          setImgError(true);
+          setLoading(false);
+          setSucesss(false);
         },
         () => {
           // On successful upload, get the file URL
@@ -43,6 +57,9 @@ function AddProduct() {
               image: [{ file: selectedFile, url: downloadURL }],
             }));
             setFiles([{ url: downloadURL, file: selectedFile }]);
+            setLoading(false);
+            setImgError(false);
+            setSucesss(false);
           });
         }
       );
@@ -51,6 +68,8 @@ function AddProduct() {
 
   // Handle form field changes
   const handleChange = (e) => {
+    setError(false);
+    setSucesss(false);
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -60,7 +79,14 @@ function AddProduct() {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError(false);
+    setImgError(false);
+    setSucesss(false);
 
+    if (files.length <= 0) {
+      return;
+    }
     try {
       // Save form data (including image URL) to Firestore
       const docRef = await addDoc(collection(db, "products"), {
@@ -81,14 +107,32 @@ function AddProduct() {
         image: [],
       });
       setFiles([]);
+      setLoading(false);
+      setError(false);
+      setSucesss(true);
+      setTimeout(() => {
+        setSucesss(false);
+        setProgress(null);
+      }, 2000);
     } catch (e) {
       console.error("Error adding document: ", e);
+      setError(true);
+      setSucesss(false);
     }
   };
 
   return (
     <div className=" h-screen">
       <main className=" relative  mb-[50px]">
+        {/* form success  */}
+        {success && (
+          <div className=" fixed top-[0] w-full h-full bg-black/20 backdrop-blur-sm text-white flex items-center justify-center">
+            <p className=" bg-green-600/70 font-bold text-[20px] p-[20px] rounded-[10px] backdrop-blur-sm">
+              Form Submited!
+            </p>
+          </div>
+        )}
+
         <form
           className="w-[90%] mx-auto overflow-scroll  h-fit pb-[100px]"
           onSubmit={handleSubmit}>
@@ -100,7 +144,18 @@ function AddProduct() {
               <AddAPhoto />
             </label>
 
-            <p className=" text-[14px] font-[400]">Add Photo</p>
+            <p className=" text-[14px] font-[400]">
+              Add Photo <br />
+              {progress > 0 && (
+                <span className=" text-sm ">
+                  Upload Progress:{" "}
+                  <span className=" text-green-600">{progress}%</span>
+                </span>
+              )}
+              {imgError > 0 && (
+                <span className=" text-sm text-red-600">Upload Failed</span>
+              )}
+            </p>
             <input
               type="file"
               accept="image/*"
@@ -192,8 +247,14 @@ function AddProduct() {
           <button
             className="bg-pink-600  py-[15px] text-[16px] font-bold text-white rounded-full my-[10px] w-full"
             type="submit">
-            Add Product
+            {loading ? "Adding..." : "Add Product"}
           </button>
+          {error && (
+            <p className=" text-lg  py-[5px] text-red-600 text-center font-bold">
+              Error uploading form <br />
+              <span className="text-sm text-white">please try again !</span>
+            </p>
+          )}
         </form>
       </main>
     </div>
