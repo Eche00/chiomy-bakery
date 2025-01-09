@@ -35,7 +35,17 @@ function Header() {
       <header className=" w-[95%] mx-auto py-[20px] flex flex-col gap-[10px] ">
         {/* profile section && like  */}
         <section className=" flex items-center justify-between">
-          {!currentUser ? (
+          <div className=" flex gap-[5px] items-center">
+            {" "}
+            <img
+              className=" w-[50px] h-[50px] rounded-full border-2 border-pink-600 "
+              src={Avatar}
+              alt=""
+            />
+            <p className="text-xs font-bold">{user?.name}</p>
+          </div>
+          {/* sign in  */}
+          {!currentUser && (
             <div className=" my-[10px]">
               <Link
                 to="signin"
@@ -43,18 +53,9 @@ function Header() {
                 SignIn
               </Link>
             </div>
-          ) : (
-            <div className=" flex gap-[10px] items-center">
-              {" "}
-              <img
-                className=" w-[50px] h-[50px] rounded-full border-2 border-pink-600 "
-                src={Avatar}
-                alt=""
-              />
-              <p>{user?.name}</p>
-            </div>
           )}
-          {/* logo  */}
+
+          {/* menu  */}
           <button className=" font-bold text-[24px]">&#9776;</button>
         </section>
 
