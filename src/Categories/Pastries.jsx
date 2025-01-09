@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-
 import { db } from "../lib/firebase";
 import { collection, onSnapshot } from "firebase/firestore";
+import { Favorite } from "@mui/icons-material";
 
 function Pastries() {
   const [products, setProducts] = useState([]);
@@ -19,9 +19,7 @@ function Pastries() {
         const filtredData = productData.filter(
           (product) => product.category === "Pastries"
         );
-        setProducts(productData);
-        console.log("Real-time data: ", filtredData);
-        console.log("Real-time data2: ", productData);
+        setProducts(filtredData);
       },
       (error) => {
         console.error("Error fetching real-time data: ", error);

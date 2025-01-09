@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../lib/firebase";
 import { collection, onSnapshot } from "firebase/firestore";
-import { Ham } from "../assets";
 import { Favorite } from "@mui/icons-material";
 
 function Cakes() {
