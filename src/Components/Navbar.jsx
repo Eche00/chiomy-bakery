@@ -8,7 +8,7 @@ import { NavLink } from "react-router-dom";
 
 function Navbar() {
   return (
-    <div className=" fixed bottom-0 w-full bg-pink-600  rounded-t-[10px]">
+    <div className=" fixed bottom-0 w-full bg-pink-600  rounded-t-[10px] sm:hidden flex">
       <nav className=" flex items-center justify-between w-[80%] mx-auto py-[10px]">
         <NavLink
           to="/"

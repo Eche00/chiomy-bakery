@@ -7,7 +7,7 @@ function Body() {
   return (
     <div>
       <Header />
-      <div className=" pt-[130px]">
+      <div className=" sm:pt-[80px] pt-[130px]">
         <Outlet />
       </div>
       <Navbar />

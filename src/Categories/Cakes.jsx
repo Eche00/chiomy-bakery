@@ -31,35 +31,40 @@ function Cakes() {
   }, []);
 
   return (
-    <div className=" pb-[100px] flex flex-wrap gap-[20px]">
-      {products.length > 0 ? (
-        products.map((product) => (
-          <div
-            className=" w-[90%] mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm"
-            key={product.id}>
-            <img
-              className="w-full h-[250px] object-cover "
-              src={product.imageUrl}
-              alt=""
-            />
+    <div className=" pb-[100px] flex  flex-col  pt-[30px]">
+      <h1 className=" font-extrabold text-[20px]">Cakes</h1>
 
-            <div className="p-[10px] flex  flex-col gap-[10px]">
-              <p className=" text-[20px] font-[600]">{product.category}</p>
+      <div className=" pb-[100px] flex flex-wrap gap-[20px] pt-[30px]">
+        {products.length > 0 ? (
+          products.map((product) => (
+            <div
+              className=" md:w-[300px] w-[90%] md:mx-0 mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm"
+              key={product.id}>
+              <img
+                className="w-full h-[250px] object-cover "
+                src={product.imageUrl}
+                alt=""
+              />
 
-              <section className="flex justify-between items-center">
-                <i className=" text-[20px] font-semibold">
-                  &#8358; {product.price}
-                </i>
-                <button>
-                  <Favorite />
-                </button>
-              </section>
+              <div className="p-[10px] flex  flex-col gap-[10px]">
+                <p className=" text-[20px] font-[600]">{product.category}</p>
+
+                <section className="flex justify-between items-center">
+                  <i className=" text-[20px] font-semibold">
+                    &#8358; {product.price}
+                  </i>
+                  <button>
+                    <Favorite />
+                  </button>
+                </section>
+              </div>
             </div>
-          </div>
-        ))
-      ) : (
-        <p>Nothing to see here</p>
-      )}
+          ))
+        ) : (
+          <p>Nothing to see here</p>
+        )}
+        <div></div>
+      </div>
     </div>
   );
 }

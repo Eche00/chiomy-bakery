@@ -59,7 +59,7 @@ function Home() {
       <div className="w-[95%] mx-auto py-[20px]">
         <section>
           <img
-            className="w-full h-[300px] rounded-[10px] object-cover"
+            className="w-full sm:h-[500px] h-[300px] rounded-[10px] object-cover"
             src={Ham}
             alt=""
           />
