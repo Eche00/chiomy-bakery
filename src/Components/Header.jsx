@@ -1,4 +1,10 @@
-import { Favorite, FavoriteOutlined, Search } from "@mui/icons-material";
+import {
+  Cancel,
+  CancelOutlined,
+  Favorite,
+  FavoriteOutlined,
+  Search,
+} from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { auth, db } from "../lib/firebase";
@@ -8,6 +14,7 @@ import { collection, getDocs } from "firebase/firestore";
 function Header() {
   const currentUser = auth.currentUser;
   const [user, setUser] = useState({});
+  const [nav, setNav] = useState(false);
 
   useEffect(() => {
     const userDataRef = collection(db, "users");
@@ -31,7 +38,7 @@ function Header() {
   }, []);
 
   return (
-    <div className=" fixed w-full bg-black/80 backdrop-blur-sm z-20 sm:border-b-[0.1px] sm:border-pink-600">
+    <div className=" overflow-visible fixed w-full bg-black/80 backdrop-blur-sm z-20 sm:border-b-[0.1px] sm:border-pink-600">
       <header className=" w-[95%] mx-auto py-[20px] flex flex-col gap-[10px] ">
         {/* profile section && like  */}
         <section className=" flex items-center justify-between">
@@ -114,9 +121,39 @@ function Header() {
             </div>
 
             {/* menu  */}
-            <button className=" font-bold text-[24px] sm:hidden flex">
+            <button
+              className=" font-bold text-[24px] sm:hidden flex"
+              onClick={() => setNav(true)}>
               &#9776;
             </button>
+            {nav && (
+              <div className="w-full bg-black/80 backdrop-blur-sm fixed top-0 left-0  h-[100vh] flex  justify-end  ">
+                {" "}
+                <section className="  w-[70%] bg-pink-600  text-white  z-50  px-[20px] py-[30px] flex flex-col gap-[30px]">
+                  <span
+                    className="absolute left-[5px] top-[5px] text-pink-600 "
+                    onClick={() => setNav(false)}>
+                    <CancelOutlined fontSize="large" />
+                  </span>
+                  <section className=" sm:hidden flex">
+                    <div className="border-2 border-black w-full rounded-full flex items-center pr-5">
+                      <input
+                        className="   bg-transparent py-2 px-5 outline-none flex-1 flex "
+                        type="text"
+                      />
+                      <span className=" text-black">
+                        <Search />
+                      </span>
+                    </div>
+                  </section>
+                  <ul>
+                    <li>hekko</li>
+                    <li>hekko</li>
+                  </ul>
+                </section>{" "}
+              </div>
+            )}
+            {/* nav for mobile  */}
           </section>
         </section>
         {/* search  mobile */}
