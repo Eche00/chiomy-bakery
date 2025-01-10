@@ -158,8 +158,9 @@ function Header() {
                       </span>
                     </div>
                   </section>
-                  <ul>
-                    <li>hekko</li>
+                  <ul className=" text-[16px] font-bold flex flex-col gap-[10px]">
+                    <li>Profile</li>
+                    <li>About</li>
                     <li>hekko</li>
                     {!currentUser ? (
                       <div className=" my-[10px]">

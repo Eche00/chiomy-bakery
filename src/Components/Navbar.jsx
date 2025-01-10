@@ -28,7 +28,7 @@ function Navbar() {
               : "flex flex-col items-center justify-center  "
           }>
           <ProductionQuantityLimits />
-          <span className="text-sm">Home</span>
+          <span className="text-sm">Product</span>
         </NavLink>
         <NavLink
           to="/likes"

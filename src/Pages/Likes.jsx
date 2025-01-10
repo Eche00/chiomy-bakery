@@ -61,7 +61,7 @@ function Likes() {
 
   if (loading) {
     return (
-      <div className=" text-center font-[400] text-[16px] ">
+      <div className=" text-center font-[400] text-[16px] py-[20px]">
         Loading liked items...
       </div>
     );
