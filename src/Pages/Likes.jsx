@@ -68,7 +68,7 @@ function Likes() {
   }
 
   return (
-    <div className="py-[20px]">
+    <div className="py-[20px] flex  flex-col gap-[20px]">
       <h2 className=" text-center font-[400] text-[18px] pb-[20px]">
         Favourites
       </h2>
