@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { db } from "../lib/firebase";
-import { collection, onSnapshot } from "firebase/firestore";
+import { auth, db } from "../lib/firebase";
+import {
+  arrayUnion,
+  collection,
+  doc,
+  getDoc,
+  onSnapshot,
+  updateDoc,
+} from "firebase/firestore";
 import { Favorite } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 function Cakes() {
+  const currentUser = auth.currentUser;
   const [products, setProducts] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     // Set up a real-time listener
     const unsubscribe = onSnapshot(
@@ -29,6 +38,33 @@ function Cakes() {
     // Cleanup the listener on unmount
     return () => unsubscribe();
   }, []);
+  // handle like
+  const handleLike = async (productId) => {
+    try {
+      // Get the current user's UID
+
+      if (!currentUser) {
+        navigate("/signin");
+      }
+
+      const userRef = doc(db, "users", currentUser.uid);
+
+      // Check if the user document exists
+      const userDoc = await getDoc(userRef);
+      if (!userDoc.exists()) {
+        throw new Error("User document does not exist");
+      }
+
+      // Add the product ID to the likes array
+      await updateDoc(userRef, {
+        likes: arrayUnion(productId), // Add the product ID to the 'likes' array
+      });
+
+      console.log("Product added to likes successfully!");
+    } catch (error) {
+      console.error("Error liking the product:", error);
+    }
+  };
 
   return (
     <div className=" pb-[100px] flex  flex-col  pt-[30px]">
@@ -53,7 +89,7 @@ function Cakes() {
                   <i className=" text-[20px] font-semibold">
                     &#8358; {product.price}
                   </i>
-                  <button>
+                  <button onClick={() => handleLike(product.id)}>
                     <Favorite />
                   </button>
                 </section>
