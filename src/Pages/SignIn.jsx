@@ -64,7 +64,7 @@ function SignIn() {
               <p>Password:</p>
               <input
                 className=" bg-transparent border-2 border-pink-600 w-full rounded-full px-5 py-2 outline-none"
-                type="text"
+                type="password"
                 value={passwordl}
                 onChange={(e) => setPasswordl(e.target.value)}
               />

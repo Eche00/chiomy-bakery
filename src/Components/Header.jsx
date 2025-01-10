@@ -6,16 +6,17 @@ import {
   Search,
 } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { auth, db } from "../lib/firebase";
 import { Avatar } from "../assets";
 import { collection, getDocs } from "firebase/firestore";
+import { signOut } from "firebase/auth";
 
 function Header() {
   const currentUser = auth.currentUser;
   const [user, setUser] = useState({});
   const [nav, setNav] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const userDataRef = collection(db, "users");
     getDocs(userDataRef)
@@ -37,6 +38,17 @@ function Header() {
       });
   }, []);
 
+  const handleSignOut = (e) => {
+    e.preventDefault();
+    try {
+      signOut(auth).then(() => {
+        console.log("user logged out");
+        navigate("/signin");
+      });
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
   return (
     <div className=" overflow-visible fixed w-full bg-black/80 backdrop-blur-sm z-20 sm:border-b-[0.1px] sm:border-pink-600">
       <header className=" w-[95%] mx-auto py-[20px] flex flex-col gap-[10px] ">
@@ -149,6 +161,24 @@ function Header() {
                   <ul>
                     <li>hekko</li>
                     <li>hekko</li>
+                    {!currentUser ? (
+                      <div className=" my-[10px]">
+                        <Link
+                          to="signin"
+                          className="bg-black px-[25px] py-[10px] text-[12px] font-bold text-white rounded-[10px] my-[10px]">
+                          SignIn
+                        </Link>
+                      </div>
+                    ) : (
+                      <div className=" my-[10px]">
+                        <Link
+                          to="signin"
+                          className="bg-black px-[25px] py-[10px] text-[12px] font-bold text-white rounded-[10px] my-[10px]"
+                          onClick={handleSignOut}>
+                          SignOut
+                        </Link>
+                      </div>
+                    )}
                   </ul>
                 </section>{" "}
               </div>
