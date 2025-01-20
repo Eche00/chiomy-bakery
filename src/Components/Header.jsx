@@ -1,6 +1,7 @@
 import {
   Cancel,
   CancelOutlined,
+  Close,
   Favorite,
   FavoriteOutlined,
   Search,
@@ -139,49 +140,64 @@ function Header() {
               &#9776;
             </button>
             {nav && (
-              <div className="w-full bg-black/80 backdrop-blur-sm fixed top-0 left-0  h-[100vh] flex  justify-end  ">
-                {" "}
-                <section className="  w-[70%] bg-pink-600  text-white  z-50  px-[20px] py-[30px] flex flex-col gap-[30px]">
-                  <span
-                    className="absolute left-[5px] top-[5px] text-pink-600 "
-                    onClick={() => setNav(false)}>
-                    <CancelOutlined fontSize="large" />
+              <div className="flex sm:hidden fixed w-full top-0 left-0 bg-black/50 backdrop-blur-sm h-[100vh] ">
+                <section className=" bg-[#07010D] w-[70%] h-full  ml-auto px-[20px] py-[10px] relative overflow-hidden   flex justify-between">
+                  <div className=" flex flex-col  text-[14px] font-[600] gap-[20px]  w-full z-50  justify-between">
+                    {/* logo  */}
+
+                    <nav className=" flex flex-col  text-[14px] font-[600] gap-[40px] pb-[40px] z-50 border-b-[0.5px] border-white h-fit w-[70%] pt-[50px]">
+                      <>
+                        <a href="#projects">
+                          <span className=" bg-white w-[4px] h-[4px] rounded-full"></span>
+                          Home
+                        </a>
+                        <a href="#about">
+                          <span className=" bg-white w-[4px] h-[4px] rounded-full"></span>
+                          About
+                        </a>
+                        <a href="#skills">
+                          <span className=" bg-white w-[4px] h-[4px] rounded-full"></span>
+                          Products
+                        </a>
+
+                        <a href="#contact">
+                          <span className=" bg-white w-[4px] h-[4px] rounded-full"></span>
+                          Contact
+                        </a>
+                      </>
+                    </nav>
+
+                    <section className=" flex flex-col justify-between h-full ">
+                      {!currentUser ? (
+                        <div>
+                          <section className=" flex flex-col justify-between h-full ">
+                            <Link
+                              to="signin"
+                              className=" py-[5px] px-[10px] border opacity-90 rounded-[5px] max-w-[70%]">
+                              SignIn
+                            </Link>
+                          </section>
+                        </div>
+                      ) : (
+                        <div>
+                          <section className=" flex flex-col justify-between h-full ">
+                            <button
+                              className=" py-[5px] px-[10px] border opacity-90 rounded-[5px] max-w-[70%]"
+                              onClick={handleSignOut}>
+                              SignOut
+                            </button>
+                          </section>
+                        </div>
+                      )}
+                    </section>
+                    <p className=" text-sm font-serif capitalize">
+                      chiomy's Bakery
+                    </p>
+                  </div>
+                  <span className="  z-50  " onClick={() => setNav(!nav)}>
+                    <Close fontSize="medium" />
                   </span>
-                  <section className=" sm:hidden flex">
-                    <div className="border-2 border-black w-full rounded-full flex items-center pr-5">
-                      <input
-                        className="   bg-transparent py-2 px-5 outline-none flex-1 flex "
-                        type="text"
-                      />
-                      <span className=" text-black">
-                        <Search />
-                      </span>
-                    </div>
-                  </section>
-                  <ul className=" text-[16px] font-bold flex flex-col gap-[10px]">
-                    <li>Profile</li>
-                    <li>About</li>
-                    <li>hekko</li>
-                    {!currentUser ? (
-                      <div className=" my-[10px]">
-                        <Link
-                          to="signin"
-                          className="bg-black px-[25px] py-[10px] text-[12px] font-bold text-white rounded-[10px] my-[10px]">
-                          SignIn
-                        </Link>
-                      </div>
-                    ) : (
-                      <div className=" my-[10px]">
-                        <Link
-                          to="signin"
-                          className="bg-black px-[25px] py-[10px] text-[12px] font-bold text-white rounded-[10px] my-[10px]"
-                          onClick={handleSignOut}>
-                          SignOut
-                        </Link>
-                      </div>
-                    )}
-                  </ul>
-                </section>{" "}
+                </section>
               </div>
             )}
             {/* nav for mobile  */}

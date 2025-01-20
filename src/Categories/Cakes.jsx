@@ -70,6 +70,21 @@ function Cakes() {
     <div className=" pb-[100px] flex  flex-col  pt-[30px]">
       <h1 className=" font-extrabold text-[20px]">Cakes</h1>
 
+      <div className=" flex gap-[10px] items-center">
+        {" "}
+        {products.length > 0 &&
+          products.map((product) => (
+            <div
+              className="  w-fit pt-5 overflow-scroll backdrop-blur-sm"
+              key={product.id}>
+              <img
+                className="md:w-[100px] md:h-[100px] w-[50px] h-[50px] object-cover  rounded-full"
+                src={product.imageUrl}
+                alt=""
+              />
+            </div>
+          ))}
+      </div>
       <div className=" pb-[100px] flex flex-wrap gap-[20px] pt-[30px]">
         {products.length > 0 ? (
           products.map((product) => (
