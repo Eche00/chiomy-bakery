@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 function Cakes() {
   const currentUser = auth.currentUser;
   const [products, setProducts] = useState([]);
+  const [productsMax, setProductsMax] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
     // Set up a real-time listener
@@ -38,6 +39,15 @@ function Cakes() {
     // Cleanup the listener on unmount
     return () => unsubscribe();
   }, []);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5; // Number of items per page
+  // Calculate the data for the current page
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = products.slice(startIndex, startIndex + itemsPerPage);
+
+  // Calculate total pages
+  const totalPages = Math.ceil(products.length / itemsPerPage);
+
   // handle like
   const handleLike = async (productId) => {
     try {

@@ -9,6 +9,8 @@ import SignIn from "./Pages/SignIn";
 import SignUp from "./Pages/SignUp";
 import { auth } from "./lib/firebase";
 import { Ham } from "./assets";
+import About from "./Pages/About";
+import ContactUs from "./Pages/ContactUs";
 
 function App() {
   const currentUser = auth.currentUser;
@@ -70,6 +72,8 @@ function App() {
                 <Route path="/product" element={<Product />} />
                 <Route path="/likes" element={<Likes />} />
                 <Route path="/add" element={<AddProduct />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<ContactUs />} />
               </Route>
               <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />

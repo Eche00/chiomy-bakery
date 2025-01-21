@@ -87,6 +87,15 @@ function Header() {
               <span className="text-sm">Home</span>
             </NavLink>
             <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                isActive
+                  ? "flex flex-col items-center justify-center   font-bold text-pink-600"
+                  : "flex flex-col items-center justify-center  "
+              }>
+              <span className="text-sm">About</span>
+            </NavLink>
+            <NavLink
               to="/product"
               className={({ isActive }) =>
                 isActive
@@ -147,23 +156,34 @@ function Header() {
 
                     <nav className=" flex flex-col  text-[14px] font-[600] gap-[40px] pb-[40px] z-50 border-b-[0.5px] border-white h-fit w-[70%] pt-[50px]">
                       <>
-                        <a href="#projects">
-                          <span className=" bg-white w-[4px] h-[4px] rounded-full"></span>
-                          Home
-                        </a>
-                        <a href="#about">
-                          <span className=" bg-white w-[4px] h-[4px] rounded-full"></span>
-                          About
-                        </a>
-                        <a href="#skills">
-                          <span className=" bg-white w-[4px] h-[4px] rounded-full"></span>
-                          Products
-                        </a>
-
-                        <a href="#contact">
-                          <span className=" bg-white w-[4px] h-[4px] rounded-full"></span>
-                          Contact
-                        </a>
+                        <NavLink
+                          to="/"
+                          className={({ isActive }) =>
+                            isActive ? "   font-bold text-pink-600" : "  "
+                          }>
+                          <span className="text-sm">Home</span>
+                        </NavLink>
+                        <NavLink
+                          to="/about"
+                          className={({ isActive }) =>
+                            isActive ? "   font-bold text-pink-600" : "  "
+                          }>
+                          <span className="text-sm">About</span>
+                        </NavLink>
+                        <NavLink
+                          to="/product"
+                          className={({ isActive }) =>
+                            isActive ? "   font-bold text-pink-600" : "  "
+                          }>
+                          <span className="text-sm">Product</span>
+                        </NavLink>
+                        <NavLink
+                          to="/contact"
+                          className={({ isActive }) =>
+                            isActive ? "   font-bold text-pink-600" : "  "
+                          }>
+                          <span className="text-sm">Contact</span>
+                        </NavLink>
                       </>
                     </nav>
 
