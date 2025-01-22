@@ -106,6 +106,15 @@ function Header() {
             </NavLink>
 
             <NavLink
+              to="/contact"
+              className={({ isActive }) =>
+                isActive
+                  ? "flex flex-col items-center justify-center   font-bold text-pink-600"
+                  : "flex flex-col items-center justify-center  "
+              }>
+              <span className="text-sm">Contact</span>
+            </NavLink>
+            <NavLink
               to="/add"
               className={({ isActive }) =>
                 isActive
