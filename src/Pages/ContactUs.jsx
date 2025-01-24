@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Contactus } from "../assets";
 
 function ContactUs() {
   const [formData, setFormData] = useState({
@@ -22,6 +23,7 @@ function ContactUs() {
       ...formData,
       [e.target.name]: e.target.value,
     });
+    console.log(formData);
   };
 
   // Handle form submission
@@ -36,22 +38,12 @@ function ContactUs() {
       return;
     }
     try {
-      // Save form data (including image URL) to Firestore
-      // const docRef = await addDoc(collection(db, "products"), {
-      //   name: formData.name,
-      //   email: formData.email,
-      //   message: formData.message,
-      // });
-
-      console.log("Document written with ID: ", docRef.id);
       // Reset the form after successful submission
       setFormData({
         name: "",
         email: "",
         message: "",
-        image: [],
       });
-      setFiles([]);
       setLoading(false);
       setError(false);
       setSucesss(true);
@@ -70,8 +62,8 @@ function ContactUs() {
         <section className=" md:w-[95%] w-[90%] mx-auto py-[40px] flex gap-[30px] md:flex-row flex-col">
           <img
             className="md:w-[600px] md:h-[600px] h-[235px] object-cover md:rounded-[20px] rounded-[8px] bg-white"
-            src=""
-            alt="about img"
+            src={Contactus}
+            alt="Contact us img"
           />
 
           {/* section 2  */}
@@ -101,7 +93,7 @@ function ContactUs() {
                 <p>Email</p>
                 <input
                   className=" bg-transparent border-2 border-pink-600 w-full rounded-full px-5 py-2 outline-none"
-                  type="text"
+                  type="email"
                   name="email"
                   onChange={handleChange}
                   id="email"

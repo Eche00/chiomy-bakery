@@ -102,7 +102,7 @@ function Header() {
                   ? "flex flex-col items-center justify-center   font-bold text-pink-600"
                   : "flex flex-col items-center justify-center  "
               }>
-              <span className="text-sm">Product</span>
+              <span className="text-sm">Shop</span>
             </NavLink>
 
             <NavLink
@@ -184,7 +184,7 @@ function Header() {
                           className={({ isActive }) =>
                             isActive ? "   font-bold text-pink-600" : "  "
                           }>
-                          <span className="text-sm">Product</span>
+                          <span className="text-sm">Shop</span>
                         </NavLink>
                         <NavLink
                           to="/contact"
@@ -202,7 +202,7 @@ function Header() {
                           <section className=" flex flex-col justify-between h-full ">
                             <Link
                               to="signin"
-                              className=" py-[5px] px-[10px] border opacity-90 rounded-[5px] max-w-[70%]">
+                              className=" py-[5px] px-[10px] border opacity-90 rounded-[5px] max-w-[70%] text-center">
                               SignIn
                             </Link>
                           </section>

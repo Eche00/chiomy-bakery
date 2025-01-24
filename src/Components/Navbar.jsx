@@ -1,8 +1,5 @@
-import {
-  FavoriteOutlined,
-  Home,
-  ProductionQuantityLimits,
-} from "@mui/icons-material";
+import { FavoriteOutlined, Home } from "@mui/icons-material";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import React from "react";
 import { NavLink } from "react-router-dom";
 
@@ -27,8 +24,8 @@ function Navbar() {
               ? "flex flex-col items-center justify-center   font-bold"
               : "flex flex-col items-center justify-center  "
           }>
-          <ProductionQuantityLimits />
-          <span className="text-sm">Product</span>
+          <AddShoppingCartIcon />
+          <span className="text-sm">Shop</span>
         </NavLink>
         <NavLink
           to="/likes"
