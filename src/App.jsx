@@ -11,6 +11,7 @@ import { auth } from "./lib/firebase";
 import { Cakes, Gifts, Ham, Pastries } from "./assets";
 import About from "./Pages/About";
 import ContactUs from "./Pages/ContactUs";
+import ScrollToTop from "./Components/ScrollToTop";
 
 function App() {
   const currentUser = auth.currentUser;
@@ -66,9 +67,12 @@ function App() {
       ) : (
         <div className=" bg-black text-white  h-[100vh] overflow-scroll relative ">
           <Router>
+            <ScrollToTop />
+
             <Routes>
               <Route element={<Body />}>
                 <Route index element={<Home />} />
+
                 <Route path="/product" element={<Product />} />
                 <Route path="/likes" element={<Likes />} />
                 <Route path="/add" element={<AddProduct />} />
