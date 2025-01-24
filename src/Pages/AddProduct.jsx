@@ -128,7 +128,7 @@ function AddProduct() {
         {success && (
           <div className=" fixed top-[0] w-full h-full bg-black/20 backdrop-blur-sm text-white flex items-center justify-center">
             <p className=" bg-green-600/70 font-bold text-[20px] p-[20px] rounded-[10px] backdrop-blur-sm">
-              Form Submited!
+              product Added!
             </p>
           </div>
         )}

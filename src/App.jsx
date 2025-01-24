@@ -21,7 +21,7 @@ function App() {
     if (currentUser) {
       setHome(false);
     }
-  }, [currentUser]);
+  }, [window]);
   return (
     <div className=" h-screen bg-black overflow-hidden">
       {home ? (
