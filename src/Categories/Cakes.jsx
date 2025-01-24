@@ -114,7 +114,11 @@ function Cakes() {
                     className="absolute top-3 right-2">
                     <Favorite />
                   </button>
-                  <button onClick={() => handleView(product.id)}>Order</button>
+                  <button
+                    onClick={() => handleView(product.id)}
+                    className="border-2 border-white shadow-black shadow-md rounded-[8px] w-[50%] py-2 m-2  text-white text-center">
+                    Order
+                  </button>
                 </section>
               </div>
             </div>
