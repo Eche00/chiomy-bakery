@@ -8,7 +8,7 @@ import AddProduct from "./Pages/AddProduct";
 import SignIn from "./Pages/SignIn";
 import SignUp from "./Pages/SignUp";
 import { auth } from "./lib/firebase";
-import { Ham } from "./assets";
+import { Cakes, Gifts, Ham, Pastries } from "./assets";
 import About from "./Pages/About";
 import ContactUs from "./Pages/ContactUs";
 
@@ -31,17 +31,17 @@ function App() {
             <section className=" flex gap-[10px] items-baseline">
               <img
                 className="w-[100px] h-[100px] rounded-full border-2 border-pink-600"
-                src={Ham}
+                src={Cakes}
                 alt=""
               />
               <img
                 className="w-[80px] h-[80px] rounded-full border-2 border-pink-600"
-                src={Ham}
+                src={Pastries}
                 alt=""
               />
               <img
                 className="w-[60px] h-[60px] rounded-full border-2 border-pink-600"
-                src={Ham}
+                src={Gifts}
                 alt=""
               />
             </section>

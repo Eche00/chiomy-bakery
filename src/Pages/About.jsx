@@ -1,5 +1,6 @@
 import React from "react";
 import "./Styles.css";
+import { AbtImg, AbtImg2, AbtImg3 } from "../assets";
 
 function About() {
   return (
@@ -11,7 +12,7 @@ function About() {
           </h1>
           <img
             className="md:w-[600px] md:h-[600px] h-[235px] object-cover md:rounded-[20px] rounded-[8px] bg-white"
-            src=""
+            src={AbtImg}
             alt="about img"
           />
 
@@ -128,7 +129,7 @@ function About() {
           <div className="  flex-1 flex sm:flex-row flex-col   gap-10">
             <img
               className="sm:w-[20%] w-full h-[400px] object-cover sm:rounded-t-full  rounded-md hover:scale-[102%] translate-scale duration-300 bg-white"
-              src="img"
+              src={AbtImg2}
               alt=""
             />
             <div className=" flex-1 flex-col h-fit my-auto">
@@ -176,7 +177,7 @@ function About() {
           <div className="  flex-1 flex sm:flex-row flex-col   gap-10">
             <img
               className="sm:w-[20%] w-full h-[400px] object-cover sm:rounded-t-full  rounded-md hover:scale-[102%] translate-scale duration-300 bg-white"
-              src="img"
+              src={AbtImg3}
               alt=""
             />
             <div className=" flex-1 flex-col h-fit my-auto">
