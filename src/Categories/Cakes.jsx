@@ -8,7 +8,7 @@ import {
   onSnapshot,
   updateDoc,
 } from "firebase/firestore";
-import { Favorite } from "@mui/icons-material";
+import { Favorite, OpenInFull } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 function Cakes() {
@@ -39,14 +39,6 @@ function Cakes() {
     // Cleanup the listener on unmount
     return () => unsubscribe();
   }, []);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5; // Number of items per page
-  // Calculate the data for the current page
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentItems = products.slice(startIndex, startIndex + itemsPerPage);
-
-  // Calculate total pages
-  const totalPages = Math.ceil(products.length / itemsPerPage);
 
   // handle like
   const handleLike = async (productId) => {
@@ -76,24 +68,27 @@ function Cakes() {
     }
   };
 
+  const handleView = (productId) => {
+    navigate(`/productcard/${productId}`);
+  };
   return (
-    <div className=" pb-[100px] flex  flex-col  pt-[30px]">
+    <div className=" pb-[100px] flex  flex-col  pt-[30px]  overflow-hidden">
       <h1 className=" font-extrabold text-[20px]">Cakes</h1>
 
-      <div className=" flex gap-[10px] items-center">
-        {" "}
-        {products.length > 0 &&
-          products.map((product) => (
-            <div
-              className="  w-fit pt-5 overflow-scroll backdrop-blur-sm"
-              key={product.id}>
-              <img
-                className="md:w-[100px] md:h-[100px] w-[50px] h-[50px] object-cover  rounded-full"
-                src={product.imageUrl}
-                alt=""
-              />
-            </div>
-          ))}
+      <div className="  overflow-scroll w-full ">
+        <div className="flex items-center gap-[10px] overflow-scroll w-fit ">
+          {" "}
+          {products.length > 0 &&
+            products.map((product) => (
+              <div className=" w-fit pt-5 backdrop-blur-sm" key={product.id}>
+                <img
+                  className="md:w-[100px] md:h-[100px] w-[50px] h-[50px] object-cover  rounded-full"
+                  src={product.imageUrl}
+                  alt=""
+                />
+              </div>
+            ))}
+        </div>
       </div>
       <div className=" pb-[100px] flex flex-wrap gap-[20px] pt-[30px]">
         {products.length > 0 ? (
@@ -108,15 +103,18 @@ function Cakes() {
               />
 
               <div className="p-[10px] flex  flex-col gap-[10px]">
-                <p className=" text-[20px] font-[600]">{product.category}</p>
+                <p className=" text-[20px] font-[600]">{product.name}</p>
 
                 <section className="flex justify-between items-center">
                   <i className=" text-[20px] font-semibold">
                     &#8358; {product.price}
                   </i>
-                  <button onClick={() => handleLike(product.id)}>
+                  <button
+                    onClick={() => handleLike(product.id)}
+                    className="absolute top-3 right-2">
                     <Favorite />
                   </button>
+                  <button onClick={() => handleView(product.id)}>Order</button>
                 </section>
               </div>
             </div>

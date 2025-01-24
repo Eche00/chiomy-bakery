@@ -12,6 +12,7 @@ import { Cakes, Gifts, Ham, Pastries } from "./assets";
 import About from "./Pages/About";
 import ContactUs from "./Pages/ContactUs";
 import ScrollToTop from "./Components/ScrollToTop";
+import Productcard from "./Pages/Productcard";
 
 function App() {
   const currentUser = auth.currentUser;
@@ -78,6 +79,7 @@ function App() {
                 <Route path="/add" element={<AddProduct />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<ContactUs />} />
+                <Route path="/productcard/:id" element={<Productcard />} />
               </Route>
               <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
