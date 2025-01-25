@@ -1,4 +1,8 @@
-import { ArrowBackIos, Favorite } from "@mui/icons-material";
+import {
+  ArrowBackIos,
+  ArrowCircleRightOutlined,
+  Favorite,
+} from "@mui/icons-material";
 import {
   arrayUnion,
   collection,
@@ -13,6 +17,7 @@ import { db } from "../lib/firebase";
 
 function Productcard() {
   const [product, setProduct] = useState([]);
+  const [relatedProduct, setRelatedProduct] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
@@ -25,9 +30,18 @@ function Productcard() {
           ...doc.data(),
         }));
         const filtredData = productData.filter((product) => product.id === id);
-        console.log(filtredData);
 
         setProduct(filtredData);
+
+        if (filtredData.length >= 1) {
+          const category = filtredData[0].category;
+          const RelatedData = productData
+            .filter((product) => product.category === category)
+            .sort((a, b) => b.createdAt - a.createdAt)
+            .slice(0, 4);
+
+          setRelatedProduct(RelatedData);
+        }
       },
       (error) => {
         console.error("Error fetching real-time data: ", error);
@@ -66,54 +80,108 @@ function Productcard() {
     }
   };
   return (
-    <div className=" bg-black md:pb-0 pb-[100px] h-screen relative">
-      <Link className=" fixed md:top-48 md:left-20 top-40 left-6" to="/product">
-        <ArrowBackIos />
-      </Link>
-      <button
-        onClick={() => handleLike(product[0]?.id)}
-        className="absolute top-3 right-2">
-        <Favorite />
-      </button>
-      <article className=" h-full flex  md:flex-row flex-col overflow-y-scroll overflow-x-hidden">
-        <div className=" flex flex-1  items-center justify-center md:mb-[150px]  ">
-          <img
-            className="md:w-[600px] md:h-[600px] h-[235px] object-cover md:rounded-[20px] rounded-[8px] bg-white"
-            src={product[0]?.imageUrl}
-            alt=""
-          />
-        </div>
-        <div className=" flex flex-col md:flex-1  md:mt-[150px] items-start">
-          <div className=" flex flex-col gap-3 w-screen md:w-fit sm:px-[60px] px-[20px] md:px-0 ">
-            <h3 className=" md:text-3xl text-2xl   font-bold flex gap-2 text-white ">
-              {product[0]?.name}
-              <p>{product[0]?.price}</p>
-            </h3>
-
-            <p className=" text-3xl  font-bold text-pink-600">
-              ₦ <span>{product[0]?.price}</span>
-            </p>
-
-            <p className=" text-md  md:w-[600px] w-[300px]">
-              {" "}
-              <b className=" text-3xl">Details</b> <br />
-              <b className=" text-black">{product[0]?.category}</b>{" "}
-              {product[0]?.details}
-            </p>
+    <div className="md:pb-0 pb-[100px] w-full flex flex-col h-fit py-[100px]">
+      <div className=" bg-black  h-fit relative ">
+        <Link
+          className=" fixed md:top-48 md:left-20 top-40 left-6"
+          to="/product">
+          <ArrowBackIos />
+        </Link>
+        <button
+          onClick={() => handleLike(product[0]?.id)}
+          className="absolute top-3 right-2">
+          <Favorite />
+        </button>
+        <article className=" h-full flex  md:flex-row flex-col overflow-y-scroll overflow-x-hidden">
+          <div className=" flex flex-1  items-center justify-center mb-[50px]   ">
+            <img
+              className="md:w-[600px] md:h-[600px] h-[235px] object-cover md:rounded-[20px] rounded-[8px] bg-white"
+              src={product[0]?.imageUrl}
+              alt=""
+            />
           </div>
+          <div className=" flex flex-col md:flex-1  md:mt-[150px] items-start">
+            <div className=" flex flex-col gap-3 w-screen md:w-fit sm:px-[60px] px-[20px] md:px-0 ">
+              <h3 className=" md:text-3xl text-2xl   font-bold flex gap-2 text-white ">
+                {product[0]?.name}
+                <p>{product[0]?.price}</p>
+              </h3>
 
-          <div className="flex  justify-between items-center   w-screen md:w-[70%] px-[15px] md:px-0 py-5 md:py-0">
-            <button className="bg-pink-600 rounded-[8px] w-full py-2 m-2  text-white text-center">
-              Order
-            </button>
-            <Link to="/product">
-              <button className="bg-[#efefef] flex justify-between items-center px-5 rounded-[8px] w-full py-2 m-2 text-center  text-black outline-none">
-                Product
+              <p className=" text-3xl  font-bold text-pink-600">
+                ₦ <span>{product[0]?.price}</span>
+              </p>
+
+              <p className=" text-md  md:w-[600px] w-[300px]">
+                {" "}
+                <b className=" text-3xl">Details</b> <br />
+                <b className=" text-black">{product[0]?.category}</b>{" "}
+                {product[0]?.details}
+              </p>
+            </div>
+
+            <div className="flex  justify-between items-center   w-screen md:w-[70%] px-[15px] md:px-0 py-5 md:py-0">
+              <button className="bg-pink-600 rounded-[8px] w-full py-2 m-2  text-white text-center">
+                Order
               </button>
-            </Link>
+              <Link to="/product">
+                <button className="bg-[#efefef] flex justify-between items-center px-5 rounded-[8px] w-full py-2 m-2 text-center  text-black outline-none">
+                  Product
+                </button>
+              </Link>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <section className=" sm:w-[70%] mx-auto ">
+        <h2 className=" text-xl font-bold">Related Products</h2>
+
+        {/* grid template  */}
+        <div className="  grid  sm:flex grid-cols-2 gap-[20px] pt-[30px]">
+          {relatedProduct.length > 0 ? (
+            relatedProduct.map((product) => (
+              <div
+                className=" md:w-[300px] w-[95%] md:mx-0 mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm"
+                key={product.id}>
+                <img
+                  className="w-full h-[150px] object-cover md:h-[250px]"
+                  src={product.imageUrl}
+                  alt=""
+                />
+
+                <div className="p-[10px] flex  flex-col md:gap-[10px] gap-[5px]">
+                  <p className=" md:text-[20px] text-[16px] font-[600]">
+                    {product.name}
+                  </p>
+
+                  <section className="flex justify-between items-center">
+                    <i className=" text-[16px] md:text-[20px] font-semibold">
+                      &#8358; {product.price}
+                    </i>
+                    <button className="absolute top-3 right-2">
+                      <Favorite />
+                    </button>
+                    <button className="border-2 border-white shadow-black shadow-md rounded-[8px] md:w-[50%] w-[40%] md:py-2 py-1 m-2  text-white text-center">
+                      Order
+                    </button>
+                  </section>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>Nothing to see here</p>
+          )}
+          <div>
+            {/* see more  */}
+            <section className=" md:flex hidden items-center justify-center w-full h-full text-pink-600">
+              {" "}
+              <Link to="/product">
+                <ArrowCircleRightOutlined fontSize="large" />
+              </Link>
+            </section>
           </div>
         </div>
-      </article>
+      </section>
     </div>
   );
 }
