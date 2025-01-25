@@ -80,27 +80,22 @@ function Productcard() {
     }
   };
   return (
-    <div className="md:pb-0 pb-[100px] w-full flex flex-col h-fit py-[100px]">
-      <div className=" bg-black  h-fit relative ">
+    <div className=" pb-[100px] w- full flex flex-col h-fit md:pt-[100px] pt-[50px] ">
+      <div className=" bg-black  h-fit relative  w-full md:pb-[20px]">
         <Link
-          className=" fixed md:top-48 md:left-20 top-40 left-6"
+          className=" fixed md:top-40 md:left-10 top-40 left-6 z-10"
           to="/product">
           <ArrowBackIos />
         </Link>
-        <button
-          onClick={() => handleLike(product[0]?.id)}
-          className="absolute top-3 right-2">
-          <Favorite />
-        </button>
-        <article className=" h-full flex  md:flex-row flex-col overflow-y-scroll overflow-x-hidden">
-          <div className=" flex flex-1  items-center justify-center mb-[50px]   ">
-            <img
-              className="md:w-[600px] md:h-[600px] h-[235px] object-cover md:rounded-[20px] rounded-[8px] bg-white"
-              src={product[0]?.imageUrl}
-              alt=""
-            />
-          </div>
-          <div className=" flex flex-col md:flex-1  md:mt-[150px] items-start">
+
+        <section className=" flex  w-[90%] mx-auto sm:flex-row flex-col sm:gap-[20px] gap-0  items-center md:items-end">
+          <img
+            className="md:w-[500px] md:h-[500px]  w-[70%] h-[300px] object-cover md:rounded-[20px] rounded-[8px] bg-white  mb-[50px] md:mb-0"
+            src={product[0]?.imageUrl}
+            alt=""
+          />
+
+          <div className=" flex flex-col flex-1  sm:mt-[150px] items-start w-full ">
             <div className=" flex flex-col gap-3 w-screen md:w-fit sm:px-[60px] px-[20px] md:px-0 ">
               <h3 className=" md:text-3xl text-2xl   font-bold flex gap-2 text-white ">
                 {product[0]?.name}
@@ -119,25 +114,27 @@ function Productcard() {
               </p>
             </div>
 
-            <div className="flex  justify-between items-center   w-screen md:w-[70%] px-[15px] md:px-0 py-5 md:py-0">
+            <div className="flex  justify-between items-center   w-full md:w-[50%] px-[15px] md:px-0 py-5 md:py-0">
               <button className="bg-pink-600 rounded-[8px] w-full py-2 m-2  text-white text-center">
                 Order
               </button>
               <Link to="/product">
-                <button className="bg-[#efefef] flex justify-between items-center px-5 rounded-[8px] w-full py-2 m-2 text-center  text-black outline-none">
-                  Product
+                <button
+                  className="bg-[#efefef] flex  justify-center items-center px-5 rounded-[8px] w-full py-2 m-2 text-center  text-black outline-none"
+                  onClick={() => handleLike(product[0]?.id)}>
+                  <Favorite />
                 </button>
               </Link>
             </div>
           </div>
-        </article>
+        </section>
       </div>
 
-      <section className=" sm:w-[70%] mx-auto ">
+      <section className=" sm:w-[80%] md:w-[90%] mx-auto ">
         <h2 className=" text-xl font-bold">Related Products</h2>
 
         {/* grid template  */}
-        <div className="  grid  sm:flex grid-cols-2 gap-[20px] pt-[30px]">
+        <div className="  grid  sm:flex sm:flex-wrap grid-cols-2 gap-[20px] pt-[30px]">
           {relatedProduct.length > 0 ? (
             relatedProduct.map((product) => (
               <div
@@ -155,7 +152,7 @@ function Productcard() {
                   </p>
 
                   <section className="flex justify-between items-center">
-                    <i className=" text-[16px] md:text-[20px] font-semibold">
+                    <i className=" text-[14px] md:text-[20px] font-semibold">
                       &#8358; {product.price}
                     </i>
                     <button className="absolute top-3 right-2">
