@@ -97,7 +97,7 @@ function Cakes() {
         </div>
       </div>
       {/* grid template  */}
-      <div className="  grid  sm:flex grid-cols-2 gap-[20px] pt-[30px]">
+      <div className="  grid  sm:flex sm:flex-wrap grid-cols-2 gap-[20px] pt-[30px]">
         {products.length > 0 ? (
           products.map((product) => (
             <div
