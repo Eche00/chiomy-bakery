@@ -8,8 +8,8 @@ import {
   onSnapshot,
   updateDoc,
 } from "firebase/firestore";
-import { Favorite, OpenInFull } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import { Favorite, ArrowCircleRightOutlined } from "@mui/icons-material";
+import { Link, useNavigate } from "react-router-dom";
 
 function Cakes() {
   const currentUser = auth.currentUser;
@@ -30,8 +30,12 @@ function Cakes() {
           .filter((product) => product.category === "Cake")
           .sort((a, b) => b.createdAt - a.createdAt)
           .slice(0, 4);
+        const filtredDataMax = productData
+          .filter((product) => product.category === "Cake")
+          .slice(0, 2);
 
         setProducts(filtredData);
+        setProductsMax(filtredDataMax);
       },
       (error) => {
         console.error("Error fetching real-time data: ", error);
@@ -92,9 +96,60 @@ function Cakes() {
             ))}
         </div>
       </div>
-      <div className=" pb-[100px] flex flex-wrap gap-[20px] pt-[30px]">
+      {/* grid template  */}
+      <div className="  grid  sm:flex grid-cols-2 gap-[20px] pt-[30px]">
         {products.length > 0 ? (
           products.map((product) => (
+            <div
+              className=" md:w-[300px] w-[95%] md:mx-0 mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm"
+              key={product.id}>
+              <img
+                className="w-full h-[150px] object-cover md:h-[250px]"
+                src={product.imageUrl}
+                alt=""
+              />
+
+              <div className="p-[10px] flex  flex-col md:gap-[10px] gap-[5px]">
+                <p className=" md:text-[20px] text-[16px] font-[600]">
+                  {product.name}
+                </p>
+
+                <section className="flex justify-between items-center">
+                  <i className=" text-[16px] md:text-[20px] font-semibold">
+                    &#8358; {product.price}
+                  </i>
+                  <button
+                    onClick={() => handleLike(product.id)}
+                    className="absolute top-3 right-2">
+                    <Favorite />
+                  </button>
+                  <button
+                    onClick={() => handleView(product.id)}
+                    className="border-2 border-white shadow-black shadow-md rounded-[8px] md:w-[50%] w-[40%] md:py-2 py-1 m-2  text-white text-center">
+                    Order
+                  </button>
+                </section>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>Nothing to see here</p>
+        )}
+        <div>
+          {/* see more  */}
+          <section className=" md:flex hidden items-center justify-center w-full h-full text-pink-600">
+            {" "}
+            <Link to="/product">
+              <ArrowCircleRightOutlined fontSize="large" />
+            </Link>
+          </section>
+        </div>
+      </div>
+
+      {/* 2 solid display  */}
+      <div className=" pb-[100px] flex md:hidden flex-wrap gap-[20px] pt-[30px] items-center">
+        {productsMax.length > 0 ? (
+          productsMax.map((product) => (
             <div
               className=" md:w-[300px] w-[90%] md:mx-0 mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm"
               key={product.id}>
@@ -128,7 +183,13 @@ function Cakes() {
         ) : (
           <p>Nothing to see here</p>
         )}
-        <div></div>
+        <div className=" flex items-center justify-center text-center w-full">
+          <Link
+            to="/product"
+            className="x underline text-sm text-pink-600 font-bold">
+            More
+          </Link>
+        </div>
       </div>
     </div>
   );
