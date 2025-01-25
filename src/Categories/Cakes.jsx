@@ -26,9 +26,11 @@ function Cakes() {
           ...doc.data(),
         }));
 
-        const filtredData = productData.filter(
-          (product) => product.category === "Cake"
-        );
+        const filtredData = productData
+          .filter((product) => product.category === "Cake")
+          .sort((a, b) => b.createdAt - a.createdAt)
+          .slice(0, 4);
+
         setProducts(filtredData);
       },
       (error) => {

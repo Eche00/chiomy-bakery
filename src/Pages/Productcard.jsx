@@ -1,13 +1,20 @@
-import { ArrowBackIos } from "@mui/icons-material";
-import { collection, onSnapshot } from "firebase/firestore";
+import { ArrowBackIos, Favorite } from "@mui/icons-material";
+import {
+  arrayUnion,
+  collection,
+  doc,
+  getDoc,
+  onSnapshot,
+  updateDoc,
+} from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { db } from "../lib/firebase";
 
 function Productcard() {
   const [product, setProduct] = useState([]);
   const { id } = useParams();
-
+  const navigate = useNavigate();
   useEffect(() => {
     // Set up a real-time listener
     const unsubscribe = onSnapshot(
@@ -30,12 +37,44 @@ function Productcard() {
     // Cleanup the listener on unmount
     return () => unsubscribe();
   }, []);
+
+  // handle like
+  const handleLike = async (productId) => {
+    try {
+      // Get the current user's UID
+
+      if (!currentUser) {
+        navigate("/signin");
+      }
+
+      const userRef = doc(db, "users", currentUser.uid);
+
+      // Check if the user document exists
+      const userDoc = await getDoc(userRef);
+      if (!userDoc.exists()) {
+        throw new Error("User document does not exist");
+      }
+
+      // Add the product ID to the likes array
+      await updateDoc(userRef, {
+        likes: arrayUnion(productId), // Add the product ID to the 'likes' array
+      });
+
+      console.log("Product added to likes successfully!");
+    } catch (error) {
+      console.error("Error liking the product:", error);
+    }
+  };
   return (
     <div className=" bg-black md:pb-0 pb-[100px] h-screen relative">
       <Link className=" fixed md:top-48 md:left-20 top-40 left-6" to="/product">
         <ArrowBackIos />
       </Link>
-
+      <button
+        onClick={() => handleLike(product[0]?.id)}
+        className="absolute top-3 right-2">
+        <Favorite />
+      </button>
       <article className=" h-full flex  md:flex-row flex-col overflow-y-scroll overflow-x-hidden">
         <div className=" flex flex-1  items-center justify-center md:mb-[150px]  ">
           <img
