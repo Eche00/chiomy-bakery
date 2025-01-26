@@ -28,7 +28,7 @@ function Cakes() {
 
         const filtredData = productData
           .filter((product) => product.category === "Cake")
-          .sort((a, b) => b.createdAt - a.createdAt)
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
           .slice(0, 4);
         const filtredDataMax = productData
           .filter((product) => product.category === "Cake")

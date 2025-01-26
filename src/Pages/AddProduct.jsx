@@ -11,6 +11,7 @@ function AddProduct() {
     category: "",
     details: "",
     image: [],
+    createdAt: "",
   });
   const [files, setFiles] = useState([]);
   const imageRef = useRef();
@@ -95,6 +96,7 @@ function AddProduct() {
         category: formData.category,
         details: formData.details,
         imageUrl: formData.image[0].url, // Store the image URL in Firestore
+        createdAt: serverTimestamp(),
       });
 
       console.log("Document written with ID: ", docRef.id);

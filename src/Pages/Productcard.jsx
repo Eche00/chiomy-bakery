@@ -1,11 +1,13 @@
 import {
   ArrowBackIos,
   ArrowCircleRightOutlined,
+  Delete,
   Favorite,
 } from "@mui/icons-material";
 import {
   arrayUnion,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   onSnapshot,
@@ -13,9 +15,10 @@ import {
 } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { db } from "../lib/firebase";
+import { auth, db } from "../lib/firebase";
 
 function Productcard() {
+  const currentUser = auth.currentUser;
   const [product, setProduct] = useState([]);
   const [relatedProduct, setRelatedProduct] = useState([]);
   const { id } = useParams();
@@ -79,6 +82,28 @@ function Productcard() {
       console.error("Error liking the product:", error);
     }
   };
+  // handle delete
+  const handleDelete = async (productId) => {
+    try {
+      // Check if the user is signed in
+      if (!currentUser) {
+        navigate("/signin");
+        return;
+      }
+
+      // Reference the specific product document in the "products" collection
+      const productRef = doc(db, "products", productId);
+
+      // Delete the product document
+      await deleteDoc(productRef);
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+      console.log("Product deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting the product:", error);
+    }
+  };
   return (
     <div className=" pb-[100px] w- full flex flex-col h-fit md:pt-[100px] pt-[50px] ">
       <div className=" bg-black  h-fit relative  w-full md:pb-[20px]">
@@ -88,13 +113,17 @@ function Productcard() {
           <ArrowBackIos />
         </Link>
 
-        <section className=" flex  w-[90%] mx-auto sm:flex-row flex-col sm:gap-[20px] gap-0  items-center md:items-end">
+        <section className=" flex  w-[90%] mx-auto sm:flex-row flex-col sm:gap-[20px] gap-0  items-center md:items-end relative">
           <img
             className="md:w-[500px] md:h-[500px]  w-[70%] h-[300px] object-cover md:rounded-[20px] rounded-[8px] bg-white  mb-[50px] md:mb-0"
             src={product[0]?.imageUrl}
             alt=""
           />
-
+          <button
+            className="bg-[#efefef] absolute left-0 top-0 flex  justify-center items-center px-5 rounded-[8px] w-[150px]] py-2 m-2 text-center  text-black outline-none"
+            onClick={() => handleDelete(product[0]?.id)}>
+            <Delete />
+          </button>
           <div className=" flex flex-col flex-1  sm:mt-[150px] items-start w-full ">
             <div className=" flex flex-col gap-3 w-screen md:w-fit sm:px-[60px] px-[20px] md:px-0 ">
               <h3 className=" md:text-3xl text-2xl   font-bold flex gap-2 text-white ">
