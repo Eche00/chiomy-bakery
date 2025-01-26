@@ -7,7 +7,7 @@ function About() {
   return (
     <>
       <div className="  my-[50px] max-w-[90%] mx-auto rounded-[20px] bg-pink-600 quicksand">
-        <section className=" md:w-[95%] w-[70%] mx-auto py-[40px] flex gap-[30px] md:flex-row flex-col">
+        <section className=" sm:w-[95%] w-[70%] mx-auto py-[40px] flex gap-[30px] sm:flex-row flex-col">
           <h1 className=" md:text-[40px] text-[24px] font-[700] flex flex-col gap-[20px] text-center md:hidden ">
             About us
           </h1>

@@ -139,7 +139,7 @@ function Header() {
             ) : (
               <>
                 <button
-                  className=" py-[5px] px-[10px] border opacity-90 rounded-[5px] max-w-[70%] text-pink-600 border-pink-600"
+                  className=" py-[5px] px-[10px] border opacity-90 rounded-[5px] max-w-[70%] text-pink-600 border-pink-600 md:flex hidden"
                   onClick={handleSignOut}>
                   <Logout fontSize="small" />
                 </button>{" "}

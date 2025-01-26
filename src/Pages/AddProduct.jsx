@@ -124,10 +124,11 @@ function AddProduct() {
   };
 
   const handleFocus = () => {
-    inputRef.current.scrollIntoView({ behaviour: "smooth", block: "center" });
+    inputRef.current.scrollIntoView({ behaviour: "smooth", block: "end" });
   };
+
   return (
-    <div className=" h-screen">
+    <div className=" h-[100vh]">
       <main className=" relative  mb-[50px]">
         {/* form success  */}
         {success && (
@@ -139,7 +140,7 @@ function AddProduct() {
         )}
 
         <form
-          className="md:w-[40%] w-[90%] mx-auto overflow-scroll  h-fit pb-[100px]"
+          className="md:w-[70%] sm:w-[40%] w-[90%] mx-auto overflow-scroll  h-fit pb-[100px]"
           onSubmit={handleSubmit}>
           <div className=" flex items-startgap-[5px] my-5 gap-[10px]">
             <label

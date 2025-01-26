@@ -58,24 +58,24 @@ function ContactUs() {
   };
   return (
     <div className=" w-full">
-      <div className="  my-[50px] max-w-[90%] mx-auto rounded-[20px] border-2 border-pink-600 quicksand md:mb-0 mb-[100px]">
-        <section className=" md:w-[95%] w-[90%] mx-auto py-[40px] flex gap-[30px] md:flex-row flex-col">
+      <div className="  my-[50px] max-w-[90%] mx-auto rounded-[20px] border-2 border-pink-600 quicksand sm:mb-0 mb-[100px]">
+        <section className=" sm:w-[95%] w-[90%] mx-auto py-[40px] flex gap-[30px] sm:flex-row flex-col">
           <img
-            className="md:w-[600px] md:h-[600px] h-[235px] object-cover md:rounded-[20px] rounded-[8px] bg-white"
+            className="sm:w-[600px] sm:h-[600px] h-[235px] object-cover sm:rounded-[20px] rounded-[8px] bg-white"
             src={Contactus}
             alt="Contact us img"
           />
 
           {/* section 2  */}
-          <section className=" md:w-[95%] w-[100%] mx-auto pt-[40px] flex gap-[30px] md:flex-row flex-col">
-            <h1 className=" md:text-[40px] text-[24px] font-[700] flex flex-col gap-[20px] text-center md:hidden ">
+          <section className=" sm:w-[95%] w-[100%] mx-auto pt-[40px] flex gap-[30px] sm:flex-row flex-col">
+            <h1 className=" sm:text-[40px] text-[24px] font-[700] flex flex-col gap-[20px] text-center sm:hidden ">
               Contact Us
             </h1>
             <form
               className="w-[90%] mx-auto overflow-scroll  h-fit pb-0 "
               onSubmit={handleSubmit}>
               <div className=" flex flex-col gap-[5px] my-5">
-                <h1 className=" md:text-[40px] text-[24px] font-[700] md:flex flex-col gap-[20px] text-center hidden ">
+                <h1 className=" sm:text-[40px] text-[24px] font-[700] sm:flex flex-col gap-[20px] text-center hidden ">
                   Contact Us
                 </h1>
                 <p>Name</p>

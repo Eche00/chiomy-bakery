@@ -114,7 +114,7 @@ function Productcard() {
           <ArrowBackIos />
         </Link>
 
-        <section className=" flex  w-[90%] mx-auto sm:flex-row flex-col sm:gap-[20px] gap-0  items-center md:items-end relative">
+        <section className=" flex  w-[90%] mx-auto sm:flex-row flex-col md:gap-[20px] gap-0  items-center sm:items-end relative">
           <button
             className="bg-[#efefef] hidden md:flex  justify-center items-center px-5 rounded-[8px] w-[150px]] py-2 m-2 text-center  text-red-600 outline-none object-right absolute   top-0 right-0 z-10"
             onClick={() => handleDelete(product[0]?.id)}>
@@ -174,27 +174,27 @@ function Productcard() {
           {relatedProduct.length > 0 ? (
             relatedProduct.map((product) => (
               <div
-                className=" md:w-[300px] w-[95%] md:mx-0 mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm"
+                className=" sm:w-[300px] w-[95%] sm:mx-0 mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm"
                 key={product.id}>
                 <img
-                  className="w-full h-[150px] object-cover md:h-[250px]"
+                  className="w-full h-[150px] object-cover sm:h-[250px]"
                   src={product.imageUrl}
                   alt=""
                 />
 
-                <div className="p-[10px] flex  flex-col md:gap-[10px] gap-[5px]">
-                  <p className=" md:text-[20px] text-[16px] font-[600]">
+                <div className="p-[10px] flex  flex-col sm:gap-[10px] gap-[5px]">
+                  <p className=" sm:text-[20px] text-[16px] font-[600]">
                     {product.name}
                   </p>
 
                   <section className="flex justify-between items-center">
-                    <i className=" text-[14px] md:text-[20px] font-semibold">
+                    <i className=" text-[14px] sm:text-[20px] font-semibold">
                       &#8358; {product.price}
                     </i>
                     <button className="absolute top-3 right-2">
                       <Favorite />
                     </button>
-                    <button className="border-2 border-white shadow-black shadow-md rounded-[8px] md:w-[50%] w-[40%] md:py-2 py-1 m-2  text-white text-center">
+                    <button className="border-2 border-white shadow-black shadow-sm rounded-[8px] sm:w-[50%] w-[40%] sm:py-2 py-1 m-2  text-white text-center">
                       Order
                     </button>
                   </section>

@@ -112,39 +112,49 @@ function Likes() {
       <h2 className=" text-center font-[400] text-[18px] pb-[20px]">
         Favourites
       </h2>
-      {likedProducts.length > 0 ? (
-        likedProducts.map((product) => (
-          <div
-            className=" md:w-[300px] w-[90%] md:mx-0 mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm flex"
-            key={product.id}>
-            <img
-              className="w-[50%] h-[150px] object-cover "
-              src={product.imageUrl}
-              alt=""
-            />
+      <div className="   md:w-[50%] w-full mx-auto flex  md:flex-column  sm:flex-row flex-col gap-[20px] ">
+        <section className="flex flex-col gap-[10px] w-full    items-center md:border-2 border-pink-600 rounded-[10px] p-[20px] flex-1">
+          {likedProducts.length > 0 ? (
+            likedProducts.map((product) => (
+              <div
+                className="  w-[90%]  bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm flex"
+                key={product.id}>
+                <img
+                  className="w-[50%] md:h-[200px] h-[150px] object-cover "
+                  src={product.imageUrl}
+                  alt=""
+                />
 
-            <div className="py-[5px] px-[10px] flex  flex-col gap-[10px] justify-between">
-              <p className=" text-[14px] font-[600]">{product.name}</p>
+                <div className="py-[5px] px-[10px] flex  flex-col gap-[5px] justify-end  ">
+                  <p className=" text-[14px] font-[600]">{product.name}</p>
 
-              <section className="flex justify-between items-center">
-                <i className=" text-[16px] font-semibold">
-                  &#8358; {product.price}
-                </i>
-                <button onClick={() => handleRemoveLike(product.id)}>
-                  <Delete fontSize="small" />
-                </button>
-              </section>
-              <button
-                onClick={() => handleView(product.id)}
-                className="border-2 border-white shadow-black shadow-md rounded-[8px] w-[100%] py-2 m-2  text-white text-center">
-                Order
-              </button>
-            </div>
-          </div>
-        ))
-      ) : (
-        <p>You have no liked items.</p>
-      )}
+                  <section className="flex  justify-between md:items-center">
+                    <i className=" text-[16px] font-semibold">
+                      &#8358; {product.price}
+                    </i>
+                    <button onClick={() => handleRemoveLike(product.id)}>
+                      <Delete fontSize="small" />
+                    </button>
+                  </section>
+                  <button
+                    onClick={() => handleView(product.id)}
+                    className="border-2 border-white shadow-black shadow-md rounded-[8px] w-[100%] py-2 m-2  text-white text-center">
+                    Order
+                  </button>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>You have no liked items.</p>
+          )}
+        </section>
+        {/* section 2 */}
+        <section className="border-2 border-pink-600 rounded-[10px] p-[20px] flex  md:w-[30%] w-full">
+          <h2 className=" text-center font-[400] text-[14px] pb-[20px]">
+            Order summary
+          </h2>
+        </section>
+      </div>
     </div>
   );
 }

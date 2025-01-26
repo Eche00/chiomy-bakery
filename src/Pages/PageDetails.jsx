@@ -6,8 +6,8 @@ function PageDetails() {
     <div>
       <div className=" max-w-[1500px] mx-auto p-5 ">
         {/*detail*/}
-        <div className=" my-20 flex sm:flex-row flex-col md:gap-[20px] gap-[50px]">
-          <article className=" sm:text-3xl sm:p-10 text-xl shadow-md shadow-pink-600 rounded-xl     overflow-scroll hover:scale-[102%] transition-scale duration-300 flex-1">
+        <div className=" my-20 flex sm:flex-row flex-col sm:gap-[20px] gap-[50px]">
+          <article className=" sm:text-3xl sm:p-10 text-xl shadow-sm shadow-pink-600 rounded-xl     overflow-scroll hover:scale-[102%] transition-scale duration-300 flex-1">
             {" "}
             <h1 className=" text-pink-600 text-2xl font-bold text-center">
               Our Pastries
@@ -32,7 +32,7 @@ function PageDetails() {
               buttercream to suit your style and taste.
             </p>
           </article>
-          <article className=" sm:text-3xl sm:p-10 text-xl shadow-md shadow-pink-600 rounded-xl     overflow-scroll hover:scale-[102%] transition-scale duration-300 flex-1">
+          <article className=" sm:text-3xl sm:p-10 text-xl shadow-sm shadow-pink-600 rounded-xl     overflow-scroll hover:scale-[102%] transition-scale duration-300 flex-1">
             {" "}
             <h1 className=" text-pink-600 text-2xl font-bold text-center">
               Our Surprises
@@ -85,7 +85,7 @@ function PageDetails() {
         <div className=" flex flex-col gap-20 mb-[100px]">
           <div className="  flex-1 flex sm:flex-row flex-col   gap-10">
             <img
-              className="sm:w-[20%] w-full h-[400px] object-cover sm:rounded-t-full  rounded-md hover:scale-[102%] translate-scale duration-300 bg-white"
+              className="sm:w-[20%] w-full h-[400px] object-cover sm:rounded-t-full  rounded-sm hover:scale-[102%] translate-scale duration-300 bg-white"
               src={AbtImg2}
               alt=""
             />
@@ -133,7 +133,7 @@ function PageDetails() {
           {/*opt 2*/}
           <div className="  flex-1 flex sm:flex-row flex-col   gap-10">
             <img
-              className="sm:w-[20%] w-full h-[400px] object-cover sm:rounded-t-full  rounded-md hover:scale-[102%] translate-scale duration-300 bg-white"
+              className="sm:w-[20%] w-full h-[400px] object-cover sm:rounded-t-full  rounded-sm hover:scale-[102%] translate-scale duration-300 bg-white"
               src={AbtImg3}
               alt=""
             />
@@ -210,8 +210,8 @@ function PageDetails() {
       </div>
       {/* // part 3 */}
       <div className=" max-w-[1500px] mx-auto p-5 ">
-        <div className=" my-20 flex  flex-col md:gap-[20px] gap-[50px]">
-          <article className=" sm:text-3xl sm:p-10 text-xl shadow-md shadow-pink-600 rounded-xl     overflow-scroll hover:scale-[102%] transition-scale duration-300 flex-1">
+        <div className=" my-20 flex  flex-col sm:gap-[20px] gap-[50px]">
+          <article className=" sm:text-3xl sm:p-10 text-xl shadow-sm shadow-pink-600 rounded-xl     overflow-scroll hover:scale-[102%] transition-scale duration-300 flex-1">
             {" "}
             <h1 className=" text-pink-600 text-2xl font-bold text-center">
               How to Order
@@ -228,7 +228,7 @@ function PageDetails() {
             </p>
           </article>
           {/* sub part  */}
-          <article className=" sm:text-3xl sm:p-10 text-xl shadow-md md:shadow-pink-600 rounded-xl     overflow-scroll hover:scale-[102%] transition-scale duration-300 flex-1">
+          <article className=" sm:text-3xl sm:p-10 text-xl shadow-sm sm:shadow-pink-600 rounded-xl     overflow-scroll hover:scale-[102%] transition-scale duration-300 flex-1">
             {" "}
             <h1 className=" text-pink-600 text-2xl font-bold text-center">
               Preserve Every Memory
