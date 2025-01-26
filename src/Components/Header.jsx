@@ -4,6 +4,7 @@ import {
   Close,
   Favorite,
   FavoriteOutlined,
+  Logout,
   Search,
 } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
@@ -127,7 +128,7 @@ function Header() {
 
           <section className="flex items-center gap-[10px]">
             {/* sign in  */}
-            {!currentUser && (
+            {!currentUser ? (
               <div className=" my-[10px]">
                 <Link
                   to="signin"
@@ -135,21 +136,29 @@ function Header() {
                   SignIn
                 </Link>
               </div>
+            ) : (
+              <>
+                <button
+                  className=" py-[5px] px-[10px] border opacity-90 rounded-[5px] max-w-[70%] text-pink-600 border-pink-600"
+                  onClick={handleSignOut}>
+                  <Logout fontSize="small" />
+                </button>{" "}
+                {/* likes  */}
+                <div className=" sm:flex hidden">
+                  <NavLink
+                    to="/likes"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "flex flex-col items-center justify-center   font-bold text-pink-600"
+                        : "flex flex-col items-center justify-center  "
+                    }>
+                    <span className="text-sm">
+                      <Favorite />
+                    </span>
+                  </NavLink>
+                </div>
+              </>
             )}
-            {/* likes  */}
-            <div className=" sm:flex hidden">
-              <NavLink
-                to="/likes"
-                className={({ isActive }) =>
-                  isActive
-                    ? "flex flex-col items-center justify-center   font-bold text-pink-600"
-                    : "flex flex-col items-center justify-center  "
-                }>
-                <span className="text-sm">
-                  <Favorite />
-                </span>
-              </NavLink>
-            </div>
 
             {/* menu  */}
             <button
