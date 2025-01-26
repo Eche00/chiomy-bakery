@@ -189,7 +189,7 @@ function Likes() {
             <button
               className="bg-pink-600  py-[15px] text-[16px] font-bold text-white rounded-full my-[10px] w-full"
               type="submit">
-              Check Out
+              Order All
             </button>
           </div>
         </section>
