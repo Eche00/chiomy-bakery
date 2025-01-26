@@ -1,6 +1,6 @@
 import { AddAPhoto } from "@mui/icons-material";
 import React, { useRef, useState } from "react";
-import { collection, addDoc } from "firebase/firestore"; // Firestore functions
+import { collection, addDoc, serverTimestamp } from "firebase/firestore"; // Firestore functions
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"; // Firebase Storage functions
 import { db, storageF } from "../lib/firebase";
 
@@ -254,7 +254,7 @@ function AddProduct() {
           {error && (
             <p className=" text-lg  py-[5px] text-red-600 text-center font-bold">
               Error uploading form <br />
-              <span className="text-sm text-white">please try again !</span>
+              <span className="text-sm text-white">please try again!</span>
             </p>
           )}
         </form>
