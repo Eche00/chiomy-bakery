@@ -5,7 +5,6 @@ import {
   Favorite,
 } from "@mui/icons-material";
 import {
-  arrayUnion,
   collection,
   deleteDoc,
   doc,
@@ -22,10 +21,12 @@ function Productcard() {
   const currentUser = auth.currentUser;
   const [product, setProduct] = useState([]);
   const [relatedProduct, setRelatedProduct] = useState([]);
+  const [likedProducts, setLikedProducts] = useState(new Set()); // Track liked products by ID
   const { id } = useParams();
   const navigate = useNavigate();
+
   useEffect(() => {
-    // Set up a real-time listener
+    // Set up a real-time listener to fetch the products from Firestore
     const unsubscribe = onSnapshot(
       collection(db, "products"),
       (snapshot) => {
@@ -33,12 +34,12 @@ function Productcard() {
           id: doc.id,
           ...doc.data(),
         }));
-        const filtredData = productData.filter((product) => product.id === id);
+        const filteredData = productData.filter((product) => product.id === id);
 
-        setProduct(filtredData);
+        setProduct(filteredData);
 
-        if (filtredData.length >= 1) {
-          const category = filtredData[0].category;
+        if (filteredData.length >= 1) {
+          const category = filteredData[0].category;
           const RelatedData = productData
             .filter((product) => product.category === category)
             .sort((a, b) => b.createdAt - a.createdAt)
@@ -54,48 +55,73 @@ function Productcard() {
 
     // Cleanup the listener on unmount
     return () => unsubscribe();
-  }, []);
+  }, [id]);
 
-  // handle like
-  const handleLike = async (productId) => {
-    try {
-      // Get the current user's UID
-
-      if (!currentUser) {
-        navigate("/signin");
-      }
-
+  // Fetch current user's liked products
+  useEffect(() => {
+    if (currentUser) {
       const userRef = doc(db, "users", currentUser.uid);
 
-      // Check if the user document exists
-      const userDoc = await getDoc(userRef);
-      if (!userDoc.exists()) {
-        throw new Error("User document does not exist");
-      }
-
-      // Add the product ID to the likes array
-      await updateDoc(userRef, {
-        likes: arrayUnion(productId), // Add the product ID to the 'likes' array
+      const unsubscribe = onSnapshot(userRef, (userDoc) => {
+        if (userDoc.exists()) {
+          const { likes = [] } = userDoc.data();
+          setLikedProducts(new Set(likes)); // Update the liked products set
+        }
       });
 
-      console.log("Product added to likes successfully!");
-    } catch (error) {
-      console.error("Error liking the product:", error);
+      return () => unsubscribe(); // Cleanup the listener on unmount
     }
-  };
-  // handle delete
-  const handleDelete = async (productId) => {
+  }, [currentUser]);
+
+  // Handle like/unlike product
+  const handleLike = async (productId) => {
     try {
-      // Check if the user is signed in
       if (!currentUser) {
         navigate("/signin");
         return;
       }
 
-      // Reference the specific product document in the "products" collection
-      const productRef = doc(db, "products", productId);
+      const userRef = doc(db, "users", currentUser.uid);
+      const userDoc = await getDoc(userRef);
 
-      // Delete the product document
+      if (!userDoc.exists()) {
+        throw new Error("User document does not exist");
+      }
+
+      // Get the current liked products from Firestore
+      const { likes } = userDoc.data();
+      const isLiked = likes && likes.includes(productId);
+
+      // Toggle like/unlike: If the product is liked, remove it; if it's not liked, add it
+      const updatedLikes = isLiked
+        ? likes.filter((id) => id !== productId) // Remove product from likes
+        : [...likes, productId]; // Add product to likes
+
+      // Update Firestore likes array
+      await updateDoc(userRef, {
+        likes: updatedLikes,
+      });
+
+      // Update the local liked products state
+      setLikedProducts(new Set(updatedLikes));
+
+      console.log(
+        isLiked ? "Product removed from likes" : "Product added to likes"
+      );
+    } catch (error) {
+      console.error("Error toggling like on the product:", error);
+    }
+  };
+
+  // Handle delete product
+  const handleDelete = async (productId) => {
+    try {
+      if (!currentUser) {
+        navigate("/signin");
+        return;
+      }
+
+      const productRef = doc(db, "products", productId);
       await deleteDoc(productRef);
       setTimeout(() => {
         navigate("/");
@@ -107,75 +133,75 @@ function Productcard() {
   };
 
   return (
-    <div className=" pb-[100px] w- full flex flex-col h-fit md:pt-[100px] pt-[50px]  overflow-hidden">
-      <div className=" bg-black  h-fit relative  w-full md:pb-[20px]">
+    <div className="pb-[100px] w-full flex flex-col h-fit md:pt-[100px] pt-[50px] overflow-hidden">
+      <div className="bg-black h-fit relative w-full md:pb-[20px]">
         <Link
-          className=" fixed md:top-40 md:left-10 top-40 left-6 z-10"
+          className="fixed md:top-40 md:left-10 top-40 left-6 z-10"
           to="/product">
           <ArrowBackIos />
         </Link>
 
-        <section className=" flex  w-[90%] mx-auto sm:flex-row flex-col md:gap-[20px] gap-0  items-center sm:items-end relative">
+        <section className="flex w-[90%] mx-auto sm:flex-row flex-col md:gap-[20px] gap-0 items-center sm:items-end relative">
           <button
-            className="bg-[#efefef] hidden md:flex  justify-center items-center px-5 rounded-[8px] w-[150px]] py-2 m-2 text-center  text-red-600 outline-none object-right absolute   top-0 right-0 z-10"
+            className="bg-[#efefef] hidden md:flex justify-center items-center px-5 rounded-[8px] w-[150px]] py-2 m-2 text-center text-red-600 outline-none object-right absolute top-0 right-0 z-10"
             onClick={() => handleDelete(product[0]?.id)}>
             <Delete />
           </button>
           <img
-            className="md:w-[380px] sm:w-[900px] md:h-[500px]  w-[70%] h-[300px] object-cover md:rounded-[20px] rounded-[8px] bg-white  mb-[50px] md:mb-0"
+            className="md:w-[380px] sm:w-[900px] md:h-[500px] w-[70%] h-[300px] object-cover md:rounded-[20px] rounded-[8px] bg-white mb-[50px] md:mb-0"
             src={product[0]?.imageUrl}
             alt=""
           />
 
-          <div className=" flex flex-col flex-1  sm:mt-[150px] items-start w-full ">
-            <div className=" flex flex-col gap-3 w-screen md:w-fit sm:px-[60px] px-[20px] md:px-0 ">
-              <h3 className=" md:text-3xl text-2xl   font-bold flex gap-2 text-white ">
+          <div className="flex flex-col flex-1 sm:mt-[150px] items-start w-full">
+            <div className="flex flex-col gap-3 w-screen md:w-fit sm:px-[60px] px-[20px] md:px-0">
+              <h3 className="md:text-3xl text-2xl font-bold flex gap-2 text-white">
                 {product[0]?.name}
                 <p>({product[0]?.category})</p>
               </h3>
 
-              <p className=" text-3xl  font-bold text-pink-600">
+              <p className="text-3xl font-bold text-pink-600">
                 ₦ <span>{numeral(product[0]?.price).format("0,0")}</span>
               </p>
 
-              <p className=" text-md  md:w-[600px] w-[300px]">
-                {" "}
-                <b className=" text-3xl">Details</b> <br />
-                <b className=" text-black">{product[0]?.category}</b>{" "}
+              <p className="text-md md:w-[600px] w-[300px]">
+                <b className="text-3xl">Details</b> <br />
+                <b className="text-black">{product[0]?.category}</b>{" "}
                 {product[0]?.details}
               </p>
             </div>
 
-            <div className="flex  justify-between items-center   w-full md:w-[50%] px-[15px] md:px-0 py-5 md:py-0">
+            <div className="flex justify-between items-center w-full md:w-[50%] px-[15px] md:px-0 py-5 md:py-0">
               <button
-                className="bg-[#efefef] md:hidden flex  justify-center items-center px-5 rounded-[8px] w-[150px]] py-2 m-2 text-center  text-red-600 outline-none object-right"
+                className="bg-[#efefef] md:hidden flex justify-center items-center px-5 rounded-[8px] w-[150px]] py-2 m-2 text-center text-red-600 outline-none object-right"
                 onClick={() => handleDelete(product[0]?.id)}>
                 <Delete />
               </button>
-              <button className="bg-pink-600 rounded-[8px] w-full py-2 m-2  text-white text-center">
+              <button className="bg-pink-600 rounded-[8px] w-full py-2 m-2 text-white text-center">
                 Order
               </button>
-              <Link to="/product">
-                <button
-                  className="bg-[#efefef] flex  justify-center items-center px-5 rounded-[8px] w-full py-2 m-2 text-center  text-black outline-none"
-                  onClick={() => handleLike(product[0]?.id)}>
-                  <Favorite />
-                </button>
-              </Link>
+              <button
+                onClick={() => handleLike(product[0]?.id)}
+                className={`bg-[#efefef] flex justify-center items-center px-5 rounded-[8px] w-full py-2 m-2 text-center ${
+                  likedProducts.has(product[0]?.id)
+                    ? "bg-red-600 text-white" // Liked state
+                    : "text-black"
+                } outline-none`}>
+                <Favorite />
+              </button>
             </div>
           </div>
         </section>
       </div>
 
-      <section className=" sm:w-[80%] md:w-[90%] mx-auto ">
-        <h2 className=" text-xl font-bold">Related Products</h2>
+      <section className="sm:w-[80%] md:w-[90%] mx-auto">
+        <h2 className="text-xl font-bold">Related Products</h2>
 
-        {/* grid template  */}
-        <div className="  grid  sm:flex sm:flex-wrap grid-cols-2 gap-[20px] pt-[30px]">
+        <div className="grid sm:flex sm:flex-wrap grid-cols-2 gap-[20px] pt-[30px]">
           {relatedProduct.length > 0 ? (
             relatedProduct.map((product) => (
               <div
-                className=" sm:w-[300px] w-[95%] sm:mx-0 mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm"
+                className="sm:w-[300px] w-[95%] sm:mx-0 mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm"
                 key={product.id}>
                 <img
                   className="w-full h-[150px] object-cover sm:h-[250px]"
@@ -183,19 +209,25 @@ function Productcard() {
                   alt=""
                 />
 
-                <div className="p-[10px] flex  flex-col sm:gap-[10px] gap-[5px]">
-                  <p className=" sm:text-[20px] text-[16px] font-[600]">
+                <div className="p-[10px] flex flex-col sm:gap-[10px] gap-[5px]">
+                  <p className="sm:text-[20px] text-[16px] font-[600]">
                     {product.name}
                   </p>
 
                   <section className="flex justify-between items-center">
-                    <i className=" text-[14px] sm:text-[20px] font-semibold">
+                    <i className="text-[14px] sm:text-[20px] font-semibold">
                       &#8358; {product.price}
                     </i>
-                    <button className="absolute top-3 right-2">
+                    <button
+                      className={`absolute top-3 right-2 p-2 rounded-full ${
+                        likedProducts.has(product.id)
+                          ? "text-red-600  bg-white"
+                          : "text-black  bg-white"
+                      }`}
+                      onClick={() => handleLike(product.id)}>
                       <Favorite />
                     </button>
-                    <button className="border-2 border-white shadow-black shadow-sm rounded-[8px] sm:w-[50%] w-[40%] sm:py-2 py-1 m-2  text-white text-center">
+                    <button className="border-2 border-white shadow-black shadow-sm rounded-[8px] sm:w-[50%] w-[40%] sm:py-2 py-1 m-2 text-white text-center">
                       Order
                     </button>
                   </section>
@@ -206,9 +238,7 @@ function Productcard() {
             <p>Nothing to see here</p>
           )}
           <div>
-            {/* see more  */}
-            <section className=" md:flex hidden items-center justify-center w-full h-full text-pink-600">
-              {" "}
+            <section className="md:flex hidden items-center justify-center w-full h-full text-pink-600">
               <Link to="/product">
                 <ArrowCircleRightOutlined fontSize="large" />
               </Link>
