@@ -105,7 +105,7 @@ function Productcard() {
     }
   };
   return (
-    <div className=" pb-[100px] w- full flex flex-col h-fit md:pt-[100px] pt-[50px] ">
+    <div className=" pb-[100px] w- full flex flex-col h-fit md:pt-[100px] pt-[50px]  overflow-hidden">
       <div className=" bg-black  h-fit relative  w-full md:pb-[20px]">
         <Link
           className=" fixed md:top-40 md:left-10 top-40 left-6 z-10"
@@ -114,16 +114,17 @@ function Productcard() {
         </Link>
 
         <section className=" flex  w-[90%] mx-auto sm:flex-row flex-col sm:gap-[20px] gap-0  items-center md:items-end relative">
-          <img
-            className="md:w-[500px] md:h-[500px]  w-[70%] h-[300px] object-cover md:rounded-[20px] rounded-[8px] bg-white  mb-[50px] md:mb-0"
-            src={product[0]?.imageUrl}
-            alt=""
-          />
           <button
-            className="bg-[#efefef] absolute left-0 top-0 flex  justify-center items-center px-5 rounded-[8px] w-[150px]] py-2 m-2 text-center  text-black outline-none"
+            className="bg-[#efefef] hidden md:flex  justify-center items-center px-5 rounded-[8px] w-[150px]] py-2 m-2 text-center  text-red-600 outline-none object-right absolute   top-0 right-0 z-10"
             onClick={() => handleDelete(product[0]?.id)}>
             <Delete />
           </button>
+          <img
+            className="md:w-[380px] sm:w-[900px] md:h-[500px]  w-[70%] h-[300px] object-cover md:rounded-[20px] rounded-[8px] bg-white  mb-[50px] md:mb-0"
+            src={product[0]?.imageUrl}
+            alt=""
+          />
+
           <div className=" flex flex-col flex-1  sm:mt-[150px] items-start w-full ">
             <div className=" flex flex-col gap-3 w-screen md:w-fit sm:px-[60px] px-[20px] md:px-0 ">
               <h3 className=" md:text-3xl text-2xl   font-bold flex gap-2 text-white ">
@@ -144,6 +145,11 @@ function Productcard() {
             </div>
 
             <div className="flex  justify-between items-center   w-full md:w-[50%] px-[15px] md:px-0 py-5 md:py-0">
+              <button
+                className="bg-[#efefef] md:hidden flex  justify-center items-center px-5 rounded-[8px] w-[150px]] py-2 m-2 text-center  text-red-600 outline-none object-right"
+                onClick={() => handleDelete(product[0]?.id)}>
+                <Delete />
+              </button>
               <button className="bg-pink-600 rounded-[8px] w-full py-2 m-2  text-white text-center">
                 Order
               </button>
