@@ -9,6 +9,7 @@ import {
 import { auth, db } from "../lib/firebase";
 import { Delete, Favorite, Remove } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import numeral from "numeral";
 
 function Likes() {
   const [likedProducts, setLikedProducts] = useState([]);
@@ -108,16 +109,16 @@ function Likes() {
     navigate(`/productcard/${productId}`);
   };
   return (
-    <div className="py-[20px] flex  flex-col gap-[20px]">
+    <div className="py-[20px] flex  flex-col gap-[20px] pb-[100px]">
       <h2 className=" text-center font-[400] text-[18px] pb-[20px]">
         Favourites
       </h2>
       <div className="   md:w-[50%] w-full mx-auto flex  md:flex-column  sm:flex-row flex-col gap-[20px] ">
-        <section className="flex flex-col gap-[10px] w-full    items-center md:border-2 border-pink-600 rounded-[10px] p-[20px] flex-1">
+        <section className="flex flex-col gap-[10px] w-full    items-center sm:border-2 border-pink-600 rounded-[10px] p-[20px] flex-1 h-fit">
           {likedProducts.length > 0 ? (
             likedProducts.map((product) => (
               <div
-                className="  w-[90%]  bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm flex"
+                className="  w-[95%]  bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm flex"
                 key={product.id}>
                 <img
                   className="w-[50%] md:h-[200px] h-[150px] object-cover "
@@ -130,7 +131,7 @@ function Likes() {
 
                   <section className="flex  justify-between md:items-center">
                     <i className=" text-[16px] font-semibold">
-                      &#8358; {product.price}
+                      &#8358; {numeral(product.price).format("0,0")}
                     </i>
                     <button onClick={() => handleRemoveLike(product.id)}>
                       <Delete fontSize="small" />
@@ -149,10 +150,48 @@ function Likes() {
           )}
         </section>
         {/* section 2 */}
-        <section className="border-2 border-pink-600 rounded-[10px] p-[20px] flex  md:w-[30%] w-full">
+        <section className="border-2 border-pink-600 rounded-[10px] p-[20px] flex  sm:w-[30%] w-full flex-col gap-[20px] h-fit">
           <h2 className=" text-center font-[400] text-[14px] pb-[20px]">
             Order summary
           </h2>
+          <div className="flex flex-col w-full gap-[5px] border-b-[0.5px] border-pink-600 pb-[10px]">
+            <p className=" flex items-center justify-between text-sm font-[500]">
+              Sub Total{" "}
+              <span className="font-bold">
+                {" "}
+                &#8358; <i>200</i>
+              </span>
+            </p>
+            <p className=" flex items-center justify-between text-sm font-[500]">
+              Discount{" "}
+              <span className="font-bold">
+                {" "}
+                &#8358; <i>200</i>
+              </span>
+            </p>
+            <p className=" flex items-center justify-between text-sm font-[500]">
+              Delivery Fee{" "}
+              <span className="font-bold">
+                {" "}
+                &#8358; <i>200</i>
+              </span>
+            </p>
+          </div>
+          {/* total  */}
+          <div className="flex flex-col w-full gap-[10px]">
+            <p className=" flex items-center justify-between text-[16px] font-[500]">
+              Total{" "}
+              <span className="font-bold">
+                {" "}
+                &#8358; <i>200</i>
+              </span>
+            </p>
+            <button
+              className="bg-pink-600  py-[15px] text-[16px] font-bold text-white rounded-full my-[10px] w-full"
+              type="submit">
+              Check Out
+            </button>
+          </div>
         </section>
       </div>
     </div>
