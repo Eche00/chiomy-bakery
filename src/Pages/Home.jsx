@@ -5,6 +5,7 @@ import GiftPacks from "../Categories/GiftPacks";
 import Decorations from "../Categories/Decorations";
 import Breads from "../Categories/Breads";
 import Pastries from "../Categories/Pastries";
+import PageDetails from "./PageDetails";
 
 function Home() {
   const [cakes, setCakes] = useState(true);
@@ -122,6 +123,7 @@ function Home() {
           {breads && <Breads />}
           {decorations && <Decorations />}
           {giftPacks && <GiftPacks />}
+          <PageDetails />
         </section>
       </div>
     </div>

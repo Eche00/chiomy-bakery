@@ -79,7 +79,7 @@ function Breads() {
   };
 
   return (
-    <div className=" pb-[100px] flex  flex-col  pt-[30px]  overflow-hidden">
+    <div className="  flex  flex-col  pt-[30px]  overflow-hidden">
       <h1 className=" font-extrabold text-[20px]">Breads</h1>
 
       <div className="  overflow-scroll w-full ">
@@ -148,7 +148,7 @@ function Breads() {
       </div>
 
       {/* 2 solid display  */}
-      <div className=" pb-[100px] flex md:hidden flex-wrap gap-[20px] pt-[30px] items-center">
+      <div className="  flex md:hidden flex-wrap gap-[20px] pt-[30px] items-center">
         {productsMax.length > 0 ? (
           productsMax.map((product) => (
             <div
