@@ -68,9 +68,9 @@ function Header() {
 
           {/* search  desktop */}
           <section className=" sm:flex hidden flex-1 mx-[50px]">
-            <div className="border-2 border-pink-600 w-full rounded-full flex items-center pr-5">
+            <div className="border-2 border-pink-600 w-full rounded-full flex items-center pr-5 overflow-hidden">
               <input
-                className="   bg-transparent py-2 px-5 outline-none flex-1 flex "
+                className="   bg-transparent py-2 px-5 outline-none flex-1 flex  border-none"
                 type="text"
               />
               <Search />

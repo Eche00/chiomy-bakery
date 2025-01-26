@@ -10,6 +10,7 @@ import {
 import { ArrowCircleRightOutlined, Favorite } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import numeral from "numeral";
+import Loading from "../Components/Loading";
 
 function Breads() {
   const currentUser = auth.currentUser;
@@ -160,7 +161,7 @@ function Breads() {
             </div>
           ))
         ) : (
-          <p>Nothing to see here</p>
+          <Loading />
         )}
         <div>
           <section className="md:flex hidden items-center justify-center w-full h-full text-pink-600">
@@ -209,7 +210,7 @@ function Breads() {
             </div>
           ))
         ) : (
-          <p>Nothing to see here</p>
+          <Loading />
         )}
       </div>
     </div>

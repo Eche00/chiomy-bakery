@@ -16,6 +16,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { auth, db } from "../lib/firebase";
 import numeral from "numeral";
+import Loading from "../Components/Loading";
 
 function Productcard() {
   const currentUser = auth.currentUser;
@@ -235,7 +236,7 @@ function Productcard() {
               </div>
             ))
           ) : (
-            <p>Nothing to see here</p>
+            <Loading />
           )}
           <div>
             <section className="md:flex hidden items-center justify-center w-full h-full text-pink-600">
