@@ -15,7 +15,7 @@ function AddProduct() {
   });
   const [files, setFiles] = useState([]);
   const imageRef = useRef();
-
+  const inputRef = useRef(null);
   // error and loading
   const [error, setError] = useState(false);
   const [imgError, setImgError] = useState(false);
@@ -123,6 +123,9 @@ function AddProduct() {
     }
   };
 
+  const handleFocus = () => {
+    inputRef.current.scrollIntoView({ behaviour: "smooth", block: "center" });
+  };
   return (
     <div className=" h-screen">
       <main className=" relative  mb-[50px]">
@@ -188,6 +191,8 @@ function AddProduct() {
               onChange={handleChange}
               value={formData.name}
               required
+              onFocus={handleFocus}
+              ref={inputRef}
             />
           </div>
           <div className=" flex flex-col gap-[5px] my-5">
@@ -200,6 +205,8 @@ function AddProduct() {
               id="price"
               value={formData.price}
               required
+              onFocus={handleFocus}
+              ref={inputRef}
             />
           </div>
           <div className=" flex flex-col gap-[5px] my-5">
@@ -211,6 +218,8 @@ function AddProduct() {
               id="category"
               name="category"
               onChange={handleChange}
+              onFocus={handleFocus}
+              ref={inputRef}
               value={formData.category}>
               <option value="" disabled>
                 Select a Category
@@ -243,7 +252,9 @@ function AddProduct() {
               onChange={handleChange}
               rows="10"
               required
-              value={formData.details}></textarea>
+              value={formData.details}
+              onFocus={handleFocus}
+              ref={inputRef}></textarea>
           </div>
 
           <button
