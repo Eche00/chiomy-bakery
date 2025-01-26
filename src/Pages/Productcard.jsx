@@ -16,6 +16,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { auth, db } from "../lib/firebase";
+import numeral from "numeral";
 
 function Productcard() {
   const currentUser = auth.currentUser;
@@ -129,11 +130,11 @@ function Productcard() {
             <div className=" flex flex-col gap-3 w-screen md:w-fit sm:px-[60px] px-[20px] md:px-0 ">
               <h3 className=" md:text-3xl text-2xl   font-bold flex gap-2 text-white ">
                 {product[0]?.name}
-                <p>{product[0]?.price}</p>
+                <p>({product[0]?.category})</p>
               </h3>
 
               <p className=" text-3xl  font-bold text-pink-600">
-                ₦ <span>{product[0]?.price}</span>
+                ₦ <span>{numeral(product[0]?.price).format("0,0")}</span>
               </p>
 
               <p className=" text-md  md:w-[600px] w-[300px]">

@@ -10,6 +10,7 @@ import {
 } from "firebase/firestore";
 import { Favorite, ArrowCircleRightOutlined } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
+import numeral from "numeral";
 
 function Decorations() {
   const currentUser = auth.currentUser;
@@ -117,7 +118,7 @@ function Decorations() {
 
                 <section className="flex justify-between items-center">
                   <i className=" text-[16px] md:text-[20px] font-semibold">
-                    &#8358; {product.price}
+                    &#8358; {numeral(product.price).format("0,0")}
                   </i>
                   <button
                     onClick={() => handleLike(product.id)}
@@ -165,7 +166,7 @@ function Decorations() {
 
                 <section className="flex justify-between items-center">
                   <i className=" text-[20px] font-semibold">
-                    &#8358; {product.price}
+                    &#8358; {numeral(product.price).format("0,0")}
                   </i>
                   <button
                     onClick={() => handleLike(product.id)}

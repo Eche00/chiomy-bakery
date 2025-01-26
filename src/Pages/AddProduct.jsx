@@ -92,7 +92,7 @@ function AddProduct() {
       // Save form data (including image URL) to Firestore
       const docRef = await addDoc(collection(db, "products"), {
         name: formData.name,
-        price: formData.price,
+        price: Number(formData.price),
         category: formData.category,
         details: formData.details,
         imageUrl: formData.image[0].url, // Store the image URL in Firestore
@@ -194,7 +194,7 @@ function AddProduct() {
             <p>Price</p>
             <input
               className=" bg-transparent border-2 border-pink-600 w-full rounded-full px-5 py-2 outline-none"
-              type="text"
+              type="number"
               name="price"
               onChange={handleChange}
               id="price"

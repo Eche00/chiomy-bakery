@@ -3,6 +3,7 @@ import { Ham } from "../assets";
 import { Link, useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../lib/firebase";
+import { ArrowBackIos } from "@mui/icons-material";
 
 function SignIn() {
   const [error, setError] = useState(false);
@@ -38,9 +39,14 @@ function SignIn() {
   return (
     <div>
       {/* container  */}
-      <main className=" relative flex  items-end h-screen overflow-hidden">
+      <main className=" relative flex  items-end h-screen overflow-scroll ">
+        <Link
+          to="/"
+          className="absolute top-2 left-2 text-white z-50 bg-pink-600 rounded-full py-3  px-[10px]">
+          <ArrowBackIos fontSize="medium" />
+        </Link>
         <img
-          className="w-full h-[250px] object-cover absolute top-0 z-0"
+          className="w-full h-[300px] object-cover absolute top-0 z-0"
           src={Ham}
           alt=""
         />

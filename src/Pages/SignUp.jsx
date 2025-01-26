@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../lib/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { HandleRegisteration } from "../lib/reLogic";
+import { ArrowBackIos } from "@mui/icons-material";
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -57,11 +58,15 @@ function SignUp() {
       {/* container  */}
       <main className=" relative flex  items-end h-screen overflow-hidden">
         <img
-          className="w-full h-[250px] object-cover absolute top-0 z-0"
+          className="w-full h-[300px] object-cover absolute top-0 z-0"
           src={Ham}
           alt=""
         />
-
+        <Link
+          to="/"
+          className="absolute top-2 left-2 text-white z-50 bg-pink-600 rounded-full py-3  px-[10px]">
+          <ArrowBackIos fontSize="medium" />
+        </Link>
         <div className=" bg-black w-full  z-50  h-[70vh] rounded-t-[50px]">
           <h1 className=" text-center font-bold font-serif my-[30px] text-[20px]">
             Sign up
