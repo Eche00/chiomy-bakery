@@ -56,7 +56,7 @@ function SignIn() {
             Sign in
           </h1>
 
-          <form onSubmit={handleLogin} className="w-[80%] mx-auto">
+          <form onSubmit={handleLogin} className="w-[80%] mx-auto md:w-[40%]">
             <div className=" flex flex-col gap-[5px] my-5">
               <p>Email:</p>
               <input

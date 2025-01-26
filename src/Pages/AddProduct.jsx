@@ -129,14 +129,14 @@ function AddProduct() {
         {/* form success  */}
         {success && (
           <div className=" fixed top-[0] w-full h-full bg-black/20 backdrop-blur-sm text-white flex items-center justify-center">
-            <p className=" bg-green-600/70 font-bold text-[20px] p-[20px] rounded-[10px] backdrop-blur-sm">
+            <p className=" bg-black border-2 border-pink-600 font-bold text-[20px] px-[30px] py-[10px] rounded-[10px] backdrop-blur-sm">
               product Added!
             </p>
           </div>
         )}
 
         <form
-          className="w-[90%] mx-auto overflow-scroll  h-fit pb-[100px]"
+          className="md:w-[40%] w-[90%] mx-auto overflow-scroll  h-fit pb-[100px]"
           onSubmit={handleSubmit}>
           <div className=" flex items-startgap-[5px] my-5 gap-[10px]">
             <label

@@ -72,7 +72,7 @@ function SignUp() {
             Sign up
           </h1>
 
-          <form onSubmit={handleSubmit} className="w-[80%] mx-auto">
+          <form onSubmit={handleSubmit} className="w-[80%] mx-auto md:w-[40%]">
             <div className=" flex flex-col gap-[5px] my-5">
               <p>Name:</p>
               <input
