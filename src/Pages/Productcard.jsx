@@ -9,6 +9,7 @@ import {
   deleteDoc,
   doc,
   getDoc,
+  getDocs,
   onSnapshot,
   updateDoc,
 } from "firebase/firestore";
@@ -25,6 +26,28 @@ function Productcard() {
   const [likedProducts, setLikedProducts] = useState(new Set()); // Track liked products by ID
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    const userDataRef = collection(db, "users");
+    getDocs(userDataRef)
+      .then((querySnap) => {
+        const userData = querySnap.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        // // filtering the db to check for the id which matches the propertyId
+        const filteredUser = userData.find(
+          (prop) => prop.id === currentUser.uid
+        );
+
+        setUser(filteredUser);
+      })
+      .catch((error) => {
+        console.error("Error retrieving document:", error);
+      });
+  }, []);
 
   useEffect(() => {
     // Set up a real-time listener to fetch the products from Firestore
@@ -143,11 +166,13 @@ function Productcard() {
         </Link>
 
         <section className="flex w-[90%] mx-auto sm:flex-row flex-col md:gap-[20px] gap-0 items-center sm:items-end relative">
-          <button
-            className="bg-[#efefef] hidden md:flex justify-center items-center px-5 rounded-[8px] w-[150px]] py-2 m-2 text-center text-red-600 outline-none object-right absolute top-0 right-0 z-10"
-            onClick={() => handleDelete(product[0]?.id)}>
-            <Delete />
-          </button>
+          {user?.email === "echeze00@gmail.com" && (
+            <button
+              className="bg-[#efefef] hidden md:flex justify-center items-center px-5 rounded-[8px] w-[150px]] py-2 m-2 text-center text-red-600 outline-none object-right absolute top-0 right-0 z-10"
+              onClick={() => handleDelete(product[0]?.id)}>
+              <Delete />
+            </button>
+          )}
           <img
             className="md:w-[380px] sm:w-[900px] md:h-[500px] w-[70%] h-[300px] object-cover md:rounded-[20px] rounded-[8px] bg-white mb-[50px] md:mb-0"
             src={product[0]?.imageUrl}
@@ -173,11 +198,13 @@ function Productcard() {
             </div>
 
             <div className="flex justify-between items-center w-full md:w-[50%] px-[15px] md:px-0 py-5 md:py-0">
-              <button
-                className="bg-[#efefef] md:hidden flex justify-center items-center px-5 rounded-[8px] w-[150px]] py-2 m-2 text-center text-red-600 outline-none object-right"
-                onClick={() => handleDelete(product[0]?.id)}>
-                <Delete />
-              </button>
+              {user?.email === "echeze00@gmail.com" && (
+                <button
+                  className="bg-[#efefef] md:hidden flex justify-center items-center px-5 rounded-[8px] w-[150px]] py-2 m-2 text-center text-red-600 outline-none object-right"
+                  onClick={() => handleDelete(product[0]?.id)}>
+                  <Delete />
+                </button>
+              )}
               <button className="bg-pink-600 rounded-[8px] w-full py-2 m-2 text-white text-center">
                 Order
               </button>

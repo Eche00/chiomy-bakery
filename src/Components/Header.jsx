@@ -115,27 +115,45 @@ function Header() {
               }>
               <span className="text-sm">Contact</span>
             </NavLink>
-            <NavLink
-              to="/add"
-              className={({ isActive }) =>
-                isActive
-                  ? "flex flex-col items-center justify-center   font-bold text-pink-600"
-                  : "flex flex-col items-center justify-center  "
-              }>
-              <span className="text-sm">Add</span>
-            </NavLink>
+            {user?.email === "echeze00@gmail.com" && (
+              <NavLink
+                to="/add"
+                className={({ isActive }) =>
+                  isActive
+                    ? "flex flex-col items-center justify-center   font-bold text-pink-600"
+                    : "flex flex-col items-center justify-center  "
+                }>
+                <span className="text-sm">Add</span>
+              </NavLink>
+            )}
           </nav>
 
           <section className="flex items-center gap-[10px]">
             {/* sign in  */}
             {!currentUser ? (
-              <div className=" my-[10px]">
-                <Link
-                  to="signin"
-                  className="bg-pink-600 px-[25px] py-[10px] text-[12px] font-bold text-white rounded-[10px] my-[10px]">
-                  SignIn
-                </Link>
-              </div>
+              <>
+                <div className=" my-[10px]">
+                  <Link
+                    to="signin"
+                    className="bg-pink-600 px-[25px] py-[10px] text-[12px] font-bold text-white rounded-[10px] my-[10px]">
+                    SignIn
+                  </Link>
+                </div>
+                {/* likes  */}
+                <div className=" sm:flex hidden">
+                  <NavLink
+                    to="/likes"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "flex flex-col items-center justify-center   font-bold text-pink-600"
+                        : "flex flex-col items-center justify-center  "
+                    }>
+                    <span className="text-sm">
+                      <Favorite />
+                    </span>
+                  </NavLink>
+                </div>
+              </>
             ) : (
               <>
                 <button
@@ -245,7 +263,7 @@ function Header() {
         <section className=" sm:hidden flex">
           <div className="border-2 border-pink-600 w-full rounded-full flex items-center pr-5">
             <input
-              className="   bg-transparent py-2 px-5 outline-none flex-1 flex "
+              className="   bg-transparent py-2 px-5 outline-none flex-1 flex  border-none"
               type="text"
             />
             <Search />
