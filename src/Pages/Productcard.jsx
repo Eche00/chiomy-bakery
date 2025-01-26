@@ -105,6 +105,7 @@ function Productcard() {
       console.error("Error deleting the product:", error);
     }
   };
+
   return (
     <div className=" pb-[100px] w- full flex flex-col h-fit md:pt-[100px] pt-[50px]  overflow-hidden">
       <div className=" bg-black  h-fit relative  w-full md:pb-[20px]">

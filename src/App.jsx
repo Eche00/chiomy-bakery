@@ -69,11 +69,9 @@ function App() {
         <div className=" bg-black text-white  h-[100vh] overflow-scroll relative ">
           <Router>
             <ScrollToTop />
-
             <Routes>
               <Route element={<Body />}>
                 <Route index element={<Home />} />
-
                 <Route path="/product" element={<Product />} />
                 <Route path="/likes" element={<Likes />} />
                 <Route path="/add" element={<AddProduct />} />
