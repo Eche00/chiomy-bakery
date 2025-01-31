@@ -13,6 +13,7 @@ import About from "./Pages/About";
 import ContactUs from "./Pages/ContactUs";
 import ScrollToTop from "./Components/ScrollToTop";
 import Productcard from "./Pages/Productcard";
+import SearchPage from "./Pages/SearchPage";
 
 function App() {
   const currentUser = auth.currentUser;
@@ -78,6 +79,7 @@ function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<ContactUs />} />
                 <Route path="/productcard/:id" element={<Productcard />} />
+                <Route path="/search" element={<SearchPage />} />
               </Route>
               <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />

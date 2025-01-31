@@ -1,12 +1,4 @@
-import {
-  Cancel,
-  CancelOutlined,
-  Close,
-  Favorite,
-  FavoriteOutlined,
-  Logout,
-  Search,
-} from "@mui/icons-material";
+import { Close, Favorite, Logout, Search } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { auth, db } from "../lib/firebase";
@@ -18,6 +10,8 @@ function Header() {
   const currentUser = auth.currentUser;
   const [user, setUser] = useState({});
   const [nav, setNav] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const navigate = useNavigate();
   useEffect(() => {
     const userDataRef = collection(db, "users");
@@ -30,7 +24,7 @@ function Header() {
 
         // // filtering the db to check for the id which matches the propertyId
         const filteredUser = userData.find(
-          (prop) => prop.id === currentUser.uid
+          (prop) => prop.id === currentUser?.uid
         );
 
         setUser(filteredUser);
@@ -51,6 +45,16 @@ function Header() {
       console.log("Error:", error);
     }
   };
+
+  // Handle input change and update the searchTerm state
+  const handleInputChange = (e) => {
+    const term = e.target.value;
+    setSearchTerm(term);
+    if (term.trim()) {
+      navigate(`/search?query=${term}`); // Redirect to search page with query parameter
+    }
+  };
+
   return (
     <div className=" overflow-visible fixed w-full bg-black/80 backdrop-blur-sm z-20 sm:border-b-[0.1px] sm:border-pink-600">
       <header className=" w-[95%] mx-auto py-[20px] flex flex-col gap-[10px] ">
@@ -72,8 +76,14 @@ function Header() {
               <input
                 className="   bg-transparent py-2 px-5 outline-none flex-1 flex  border-none"
                 type="text"
+                value={searchTerm}
+                onChange={handleInputChange}
+                placeholder="Search for a product"
               />
-              <Search />
+              <span className=" cursor-pointer">
+                {" "}
+                <Search />
+              </span>
             </div>
           </section>
           {/* navigation desktop  */}
@@ -261,12 +271,18 @@ function Header() {
         </section>
         {/* search  mobile */}
         <section className=" sm:hidden flex">
-          <div className="border-2 border-pink-600 w-full rounded-full flex items-center pr-5">
+          <div className="border-2 border-pink-600 w-full rounded-full flex items-center pr-5 overflow-hidden">
             <input
-              className="   bg-transparent py-2 px-5 outline-none flex-1 flex  border-none"
+              className="   bg-transparent py-2 px-5 outline-none flex-1 flex  border-none "
               type="text"
+              value={searchTerm}
+              onChange={handleInputChange}
+              placeholder="Search for a product"
             />
-            <Search />
+            <span className=" cursor-pointer">
+              {" "}
+              <Search />
+            </span>
           </div>
         </section>
       </header>
