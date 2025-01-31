@@ -14,6 +14,11 @@ import ContactUs from "./Pages/ContactUs";
 import ScrollToTop from "./Components/ScrollToTop";
 import Productcard from "./Pages/Productcard";
 import SearchPage from "./Pages/SearchPage";
+import AllCakes from "./CategoryFull/AllCakes";
+import AllBread from "./CategoryFull/AllBread";
+import AllPastries from "./CategoryFull/AllPastries";
+import AllDecorations from "./CategoryFull/AllDecorations";
+import AllGiftPacks from "./CategoryFull/AllGifts";
 
 function App() {
   const currentUser = auth.currentUser;
@@ -80,6 +85,12 @@ function App() {
                 <Route path="/contact" element={<ContactUs />} />
                 <Route path="/productcard/:id" element={<Productcard />} />
                 <Route path="/search" element={<SearchPage />} />
+
+                <Route path="/cake" element={<AllCakes />} />
+                <Route path="/bread" element={<AllBread />} />
+                <Route path="/pastries" element={<AllPastries />} />
+                <Route path="/decoration" element={<AllDecorations />} />
+                <Route path="/gift" element={<AllGiftPacks />} />
               </Route>
               <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />

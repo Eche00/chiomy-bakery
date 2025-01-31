@@ -6,7 +6,11 @@ import {
   onSnapshot,
   updateDoc,
 } from "firebase/firestore";
-import { ArrowCircleRightOutlined, Favorite } from "@mui/icons-material";
+import {
+  ArrowCircleRightOutlined,
+  ArrowForward,
+  Favorite,
+} from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import numeral from "numeral";
 import { auth, db } from "../lib/firebase";
@@ -134,7 +138,7 @@ function Product() {
   };
 
   return (
-    <div className="flex flex-col pt-[30px] overflow-hidden">
+    <div className="flex flex-col pt-[30px] overflow-hidden pb-[100px]">
       <h1 className="font-extrabold text-[20px] text-center">Shop</h1>
 
       <div className="overflow-scroll w-full ">
@@ -156,206 +160,253 @@ function Product() {
         {products.length > 0 ? (
           <div className=" flex flex-col gap-[20px]">
             {/* cakes section  */}
+            <section className=" w-full">
+              <div className="grid md:flex md:flex-wrap grid-cols-2 gap-[20px] pt-[30px]">
+                {cake.map((product) => (
+                  <div
+                    className="md:w-[300px] w-[95%] md:mx-0 mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm"
+                    key={product.id}>
+                    <img
+                      className="w-full h-[150px] object-cover md:h-[250px]"
+                      src={product.imageUrl}
+                      alt=""
+                    />
 
-            <div className="grid md:flex md:flex-wrap grid-cols-2 gap-[20px] pt-[30px]">
-              {cake.map((product) => (
-                <div
-                  className="md:w-[300px] w-[95%] md:mx-0 mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm"
-                  key={product.id}>
-                  <img
-                    className="w-full h-[150px] object-cover md:h-[250px]"
-                    src={product.imageUrl}
-                    alt=""
-                  />
+                    <div className="p-[10px] flex flex-col md:gap-[10px] gap-[5px]">
+                      <p className="md:text-[20px] text-[16px] font-[600]">
+                        {product.name}
+                      </p>
 
-                  <div className="p-[10px] flex flex-col md:gap-[10px] gap-[5px]">
-                    <p className="md:text-[20px] text-[16px] font-[600]">
-                      {product.name}
-                    </p>
-
-                    <section className="flex justify-between items-center">
-                      <i className="text-[14px] md:text-[20px] font-semibold">
-                        &#8358; {numeral(product.price).format("0,0")}
-                      </i>
-                      <button
-                        onClick={() => handleLike(product.id)}
-                        className={`absolute top-3 right-2 p-2 rounded-full ${
-                          likedProducts.has(product.id)
-                            ? "text-red-600  bg-white"
-                            : "text-black  bg-white"
-                        }`}>
-                        <Favorite />
-                      </button>
-                      <button
-                        onClick={() => handleView(product.id)}
-                        className="border-2 border-white shadow-black shadow-md rounded-[8px] md:w-[50%] w-[40%] md:py-2 py-1 m-2 text-white text-center">
-                        Order
-                      </button>
-                    </section>
+                      <section className="flex justify-between items-center">
+                        <i className="text-[14px] md:text-[20px] font-semibold">
+                          &#8358; {numeral(product.price).format("0,0")}
+                        </i>
+                        <button
+                          onClick={() => handleLike(product.id)}
+                          className={`absolute top-3 right-2 p-2 rounded-full ${
+                            likedProducts.has(product.id)
+                              ? "text-red-600  bg-white"
+                              : "text-black  bg-white"
+                          }`}>
+                          <Favorite />
+                        </button>
+                        <button
+                          onClick={() => handleView(product.id)}
+                          className="border-2 border-white shadow-black shadow-md rounded-[8px] md:w-[50%] w-[40%] md:py-2 py-1 m-2 text-white text-center">
+                          Order
+                        </button>
+                      </section>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+              {cake.length > 0 && (
+                <Link
+                  to="/cake"
+                  className=" text-center underline  text-[12px] font-bold flex items-center justify-center w-full pt-[10px]">
+                  see more <ArrowForward fontSize="small" />
+                </Link>
+              )}
+            </section>
+
             {/* bread section  */}
-            <div className="grid md:flex md:flex-wrap grid-cols-2 gap-[20px] pt-[30px]">
-              {bread.map((product) => (
-                <div
-                  className="md:w-[300px] w-[95%] md:mx-0 mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm"
-                  key={product.id}>
-                  <img
-                    className="w-full h-[150px] object-cover md:h-[250px]"
-                    src={product.imageUrl}
-                    alt=""
-                  />
+            <section className=" w-full">
+              <div className="grid md:flex md:flex-wrap grid-cols-2 gap-[20px] pt-[30px]">
+                {bread.map((product) => (
+                  <div
+                    className="md:w-[300px] w-[95%] md:mx-0 mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm"
+                    key={product.id}>
+                    <img
+                      className="w-full h-[150px] object-cover md:h-[250px]"
+                      src={product.imageUrl}
+                      alt=""
+                    />
 
-                  <div className="p-[10px] flex flex-col md:gap-[10px] gap-[5px]">
-                    <p className="md:text-[20px] text-[16px] font-[600]">
-                      {product.name}
-                    </p>
+                    <div className="p-[10px] flex flex-col md:gap-[10px] gap-[5px]">
+                      <p className="md:text-[20px] text-[16px] font-[600]">
+                        {product.name}
+                      </p>
 
-                    <section className="flex justify-between items-center">
-                      <i className="text-[14px] md:text-[20px] font-semibold">
-                        &#8358; {numeral(product.price).format("0,0")}
-                      </i>
-                      <button
-                        onClick={() => handleLike(product.id)}
-                        className={`absolute top-3 right-2 p-2 rounded-full ${
-                          likedProducts.has(product.id)
-                            ? "text-red-600  bg-white"
-                            : "text-black  bg-white"
-                        }`}>
-                        <Favorite />
-                      </button>
-                      <button
-                        onClick={() => handleView(product.id)}
-                        className="border-2 border-white shadow-black shadow-md rounded-[8px] md:w-[50%] w-[40%] md:py-2 py-1 m-2 text-white text-center">
-                        Order
-                      </button>
-                    </section>
+                      <section className="flex justify-between items-center">
+                        <i className="text-[14px] md:text-[20px] font-semibold">
+                          &#8358; {numeral(product.price).format("0,0")}
+                        </i>
+                        <button
+                          onClick={() => handleLike(product.id)}
+                          className={`absolute top-3 right-2 p-2 rounded-full ${
+                            likedProducts.has(product.id)
+                              ? "text-red-600  bg-white"
+                              : "text-black  bg-white"
+                          }`}>
+                          <Favorite />
+                        </button>
+                        <button
+                          onClick={() => handleView(product.id)}
+                          className="border-2 border-white shadow-black shadow-md rounded-[8px] md:w-[50%] w-[40%] md:py-2 py-1 m-2 text-white text-center">
+                          Order
+                        </button>
+                      </section>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+              {bread.length > 0 && (
+                <Link
+                  to="/bread"
+                  className=" text-center underline  text-[12px] font-bold flex items-center justify-center w-full pt-[10px]">
+                  see more <ArrowForward fontSize="small" />
+                </Link>
+              )}
+            </section>
             {/* pastries section  */}
-            <div className="grid md:flex md:flex-wrap grid-cols-2 gap-[20px] pt-[30px]">
-              {pastries.map((product) => (
-                <div
-                  className="md:w-[300px] w-[95%] md:mx-0 mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm"
-                  key={product.id}>
-                  <img
-                    className="w-full h-[150px] object-cover md:h-[250px]"
-                    src={product.imageUrl}
-                    alt=""
-                  />
+            <section className=" w-full">
+              <div className="grid md:flex md:flex-wrap grid-cols-2 gap-[20px] pt-[30px]">
+                {pastries.map((product) => (
+                  <div
+                    className="md:w-[300px] w-[95%] md:mx-0 mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm"
+                    key={product.id}>
+                    <img
+                      className="w-full h-[150px] object-cover md:h-[250px]"
+                      src={product.imageUrl}
+                      alt=""
+                    />
 
-                  <div className="p-[10px] flex flex-col md:gap-[10px] gap-[5px]">
-                    <p className="md:text-[20px] text-[16px] font-[600]">
-                      {product.name}
-                    </p>
+                    <div className="p-[10px] flex flex-col md:gap-[10px] gap-[5px]">
+                      <p className="md:text-[20px] text-[16px] font-[600]">
+                        {product.name}
+                      </p>
 
-                    <section className="flex justify-between items-center">
-                      <i className="text-[14px] md:text-[20px] font-semibold">
-                        &#8358; {numeral(product.price).format("0,0")}
-                      </i>
-                      <button
-                        onClick={() => handleLike(product.id)}
-                        className={`absolute top-3 right-2 p-2 rounded-full ${
-                          likedProducts.has(product.id)
-                            ? "text-red-600  bg-white"
-                            : "text-black  bg-white"
-                        }`}>
-                        <Favorite />
-                      </button>
-                      <button
-                        onClick={() => handleView(product.id)}
-                        className="border-2 border-white shadow-black shadow-md rounded-[8px] md:w-[50%] w-[40%] md:py-2 py-1 m-2 text-white text-center">
-                        Order
-                      </button>
-                    </section>
+                      <section className="flex justify-between items-center">
+                        <i className="text-[14px] md:text-[20px] font-semibold">
+                          &#8358; {numeral(product.price).format("0,0")}
+                        </i>
+                        <button
+                          onClick={() => handleLike(product.id)}
+                          className={`absolute top-3 right-2 p-2 rounded-full ${
+                            likedProducts.has(product.id)
+                              ? "text-red-600  bg-white"
+                              : "text-black  bg-white"
+                          }`}>
+                          <Favorite />
+                        </button>
+                        <button
+                          onClick={() => handleView(product.id)}
+                          className="border-2 border-white shadow-black shadow-md rounded-[8px] md:w-[50%] w-[40%] md:py-2 py-1 m-2 text-white text-center">
+                          Order
+                        </button>
+                      </section>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+              {pastries.length > 0 && (
+                <Link
+                  to="/pastries"
+                  className=" text-center underline  text-[12px] font-bold flex items-center justify-center w-full pt-[10px]">
+                  see more <ArrowForward fontSize="small" />
+                </Link>
+              )}
+            </section>
+
             {/* decoration section  */}
-            <div className="grid md:flex md:flex-wrap grid-cols-2 gap-[20px] pt-[30px]">
-              {decoratons.map((product) => (
-                <div
-                  className="md:w-[300px] w-[95%] md:mx-0 mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm"
-                  key={product.id}>
-                  <img
-                    className="w-full h-[150px] object-cover md:h-[250px]"
-                    src={product.imageUrl}
-                    alt=""
-                  />
+            <section className=" w-full">
+              <div className="grid md:flex md:flex-wrap grid-cols-2 gap-[20px] pt-[30px]">
+                {decoratons.map((product) => (
+                  <div
+                    className="md:w-[300px] w-[95%] md:mx-0 mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm"
+                    key={product.id}>
+                    <img
+                      className="w-full h-[150px] object-cover md:h-[250px]"
+                      src={product.imageUrl}
+                      alt=""
+                    />
 
-                  <div className="p-[10px] flex flex-col md:gap-[10px] gap-[5px]">
-                    <p className="md:text-[20px] text-[16px] font-[600]">
-                      {product.name}
-                    </p>
+                    <div className="p-[10px] flex flex-col md:gap-[10px] gap-[5px]">
+                      <p className="md:text-[20px] text-[16px] font-[600]">
+                        {product.name}
+                      </p>
 
-                    <section className="flex justify-between items-center">
-                      <i className="text-[14px] md:text-[20px] font-semibold">
-                        &#8358; {numeral(product.price).format("0,0")}
-                      </i>
-                      <button
-                        onClick={() => handleLike(product.id)}
-                        className={`absolute top-3 right-2 p-2 rounded-full ${
-                          likedProducts.has(product.id)
-                            ? "text-red-600  bg-white"
-                            : "text-black  bg-white"
-                        }`}>
-                        <Favorite />
-                      </button>
-                      <button
-                        onClick={() => handleView(product.id)}
-                        className="border-2 border-white shadow-black shadow-md rounded-[8px] md:w-[50%] w-[40%] md:py-2 py-1 m-2 text-white text-center">
-                        Order
-                      </button>
-                    </section>
+                      <section className="flex justify-between items-center">
+                        <i className="text-[14px] md:text-[20px] font-semibold">
+                          &#8358; {numeral(product.price).format("0,0")}
+                        </i>
+                        <button
+                          onClick={() => handleLike(product.id)}
+                          className={`absolute top-3 right-2 p-2 rounded-full ${
+                            likedProducts.has(product.id)
+                              ? "text-red-600  bg-white"
+                              : "text-black  bg-white"
+                          }`}>
+                          <Favorite />
+                        </button>
+                        <button
+                          onClick={() => handleView(product.id)}
+                          className="border-2 border-white shadow-black shadow-md rounded-[8px] md:w-[50%] w-[40%] md:py-2 py-1 m-2 text-white text-center">
+                          Order
+                        </button>
+                      </section>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+              {decoratons.length > 0 && (
+                <Link
+                  to="/decoration"
+                  className=" text-center underline  text-[12px] font-bold flex items-center justify-center w-full pt-[10px]">
+                  see more <ArrowForward fontSize="small" />
+                </Link>
+              )}
+            </section>
+
             {/* gifts section  */}
-            <div className="grid md:flex md:flex-wrap grid-cols-2 gap-[20px] pt-[30px]">
-              {gifts.map((product) => (
-                <div
-                  className="md:w-[300px] w-[95%] md:mx-0 mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm"
-                  key={product.id}>
-                  <img
-                    className="w-full h-[150px] object-cover md:h-[250px]"
-                    src={product.imageUrl}
-                    alt=""
-                  />
+            <section className=" w-full">
+              <div className="grid md:flex md:flex-wrap grid-cols-2 gap-[20px] pt-[30px]">
+                {gifts.map((product) => (
+                  <div
+                    className="md:w-[300px] w-[95%] md:mx-0 mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm"
+                    key={product.id}>
+                    <img
+                      className="w-full h-[150px] object-cover md:h-[250px]"
+                      src={product.imageUrl}
+                      alt=""
+                    />
 
-                  <div className="p-[10px] flex flex-col md:gap-[10px] gap-[5px]">
-                    <p className="md:text-[20px] text-[16px] font-[600]">
-                      {product.name}
-                    </p>
+                    <div className="p-[10px] flex flex-col md:gap-[10px] gap-[5px]">
+                      <p className="md:text-[20px] text-[16px] font-[600]">
+                        {product.name}
+                      </p>
 
-                    <section className="flex justify-between items-center">
-                      <i className="text-[14px] md:text-[20px] font-semibold">
-                        &#8358; {numeral(product.price).format("0,0")}
-                      </i>
-                      <button
-                        onClick={() => handleLike(product.id)}
-                        className={`absolute top-3 right-2 p-2 rounded-full ${
-                          likedProducts.has(product.id)
-                            ? "text-red-600  bg-white"
-                            : "text-black  bg-white"
-                        }`}>
-                        <Favorite />
-                      </button>
-                      <button
-                        onClick={() => handleView(product.id)}
-                        className="border-2 border-white shadow-black shadow-md rounded-[8px] md:w-[50%] w-[40%] md:py-2 py-1 m-2 text-white text-center">
-                        Order
-                      </button>
-                    </section>
+                      <section className="flex justify-between items-center">
+                        <i className="text-[14px] md:text-[20px] font-semibold">
+                          &#8358; {numeral(product.price).format("0,0")}
+                        </i>
+                        <button
+                          onClick={() => handleLike(product.id)}
+                          className={`absolute top-3 right-2 p-2 rounded-full ${
+                            likedProducts.has(product.id)
+                              ? "text-red-600  bg-white"
+                              : "text-black  bg-white"
+                          }`}>
+                          <Favorite />
+                        </button>
+                        <button
+                          onClick={() => handleView(product.id)}
+                          className="border-2 border-white shadow-black shadow-md rounded-[8px] md:w-[50%] w-[40%] md:py-2 py-1 m-2 text-white text-center">
+                          Order
+                        </button>
+                      </section>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+              {gifts.length > 0 && (
+                <Link
+                  to="/gift"
+                  className=" text-center underline  text-[12px] font-bold flex items-center justify-center w-full pt-[10px]">
+                  see more <ArrowForward fontSize="small" />
+                </Link>
+              )}
+            </section>
           </div>
         ) : (
           <div className=" flex items-center justify-center w-full mx-auto h-full">
