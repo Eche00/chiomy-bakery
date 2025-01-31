@@ -51,7 +51,7 @@ function Likes() {
         // Check if the user is logged in
         if (!currentUser) {
           console.error("No user logged in");
-          navigate("/signin");
+
           return;
         }
 
@@ -156,49 +156,51 @@ function Likes() {
             )}
           </section>
           {/* section 2 */}
-          <section className="border-2 border-pink-600 rounded-[10px] p-[20px] flex  sm:w-[30%] w-full flex-col gap-[20px] h-fit">
-            <h2 className=" text-center font-[400] text-[14px] pb-[20px]">
-              Order summary
-            </h2>
-            <div className="flex flex-col w-full gap-[5px] border-b-[0.5px] border-pink-600 pb-[10px]">
-              <p className=" flex items-center justify-between text-sm font-[500]">
-                Sub Total{" "}
-                <span className="font-bold">
-                  {" "}
-                  &#8358; <i>200</i>
-                </span>
-              </p>
-              <p className=" flex items-center justify-between text-sm font-[500]">
-                Discount{" "}
-                <span className="font-bold">
-                  {" "}
-                  &#8358; <i>200</i>
-                </span>
-              </p>
-              <p className=" flex items-center justify-between text-sm font-[500]">
-                Delivery Fee{" "}
-                <span className="font-bold">
-                  {" "}
-                  &#8358; <i>200</i>
-                </span>
-              </p>
-            </div>
-            {/* total  */}
-            <div className="flex flex-col w-full gap-[10px]">
-              <p className=" flex items-center justify-between text-[16px] font-[500]">
-                Total{" "}
-                <span className="font-bold">
-                  {" "}
-                  &#8358; <i>200</i>
-                </span>
-              </p>
-              <button
-                className="bg-pink-600  py-[15px] text-[16px] font-bold text-white rounded-full my-[10px] w-full"
-                type="submit">
-                Order All
-              </button>
-            </div>
-          </section>
+          {likedProducts.length >= 1 && (
+            <section className="border-2 border-pink-600 rounded-[10px] p-[20px] flex  sm:w-[30%] w-full flex-col gap-[20px] h-fit">
+              <h2 className=" text-center font-[400] text-[14px] pb-[20px]">
+                Order summary
+              </h2>
+              <div className="flex flex-col w-full gap-[5px] border-b-[0.5px] border-pink-600 pb-[10px]">
+                <p className=" flex items-center justify-between text-sm font-[500]">
+                  Sub Total{" "}
+                  <span className="font-bold">
+                    {" "}
+                    &#8358; <i>200</i>
+                  </span>
+                </p>
+                <p className=" flex items-center justify-between text-sm font-[500]">
+                  Discount{" "}
+                  <span className="font-bold">
+                    {" "}
+                    &#8358; <i>200</i>
+                  </span>
+                </p>
+                <p className=" flex items-center justify-between text-sm font-[500]">
+                  Delivery Fee{" "}
+                  <span className="font-bold">
+                    {" "}
+                    &#8358; <i>200</i>
+                  </span>
+                </p>
+              </div>
+              {/* total  */}
+              <div className="flex flex-col w-full gap-[10px]">
+                <p className=" flex items-center justify-between text-[16px] font-[500]">
+                  Total{" "}
+                  <span className="font-bold">
+                    {" "}
+                    &#8358; <i>200</i>
+                  </span>
+                </p>
+                <button
+                  className="bg-pink-600  py-[15px] text-[16px] font-bold text-white rounded-full my-[10px] w-full"
+                  type="submit">
+                  Order All
+                </button>
+              </div>
+            </section>
+          )}
         </div>
       ) : (
         <Loading />
