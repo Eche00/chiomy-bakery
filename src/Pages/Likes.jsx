@@ -15,6 +15,9 @@ import Loading from "../Components/Loading";
 function Likes() {
   const [likedProducts, setLikedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [totalPrice, setTotalPrice] = useState(null);
+  const [deliveryPrice, setDeliveryPrice] = useState(1000);
+  const [subTotalPrice, setSubTotalPrice] = useState(null);
   const currentUser = auth.currentUser;
   const navigate = useNavigate();
 
@@ -81,9 +84,17 @@ function Likes() {
                 return null;
               })
             );
+            const Liked = likedProductsData.filter((item) => item !== null);
 
             // Filter out any null values (in case a product was deleted)
-            setLikedProducts(likedProductsData.filter((item) => item !== null));
+            setLikedProducts(Liked);
+            setSubTotalPrice(
+              Liked.reduce(
+                (sum, product) => sum + Number(product.price || 0),
+                0
+              )
+            );
+            setTotalPrice(subTotalPrice + deliveryPrice);
             setLoading(false);
           } else {
             console.log("No liked items found");
@@ -166,21 +177,21 @@ function Likes() {
                   Sub Total{" "}
                   <span className="font-bold">
                     {" "}
-                    &#8358; <i>200</i>
+                    &#8358; <i>{subTotalPrice.toLocaleString()}</i>
                   </span>
                 </p>
                 <p className=" flex items-center justify-between text-sm font-[500]">
                   Discount{" "}
                   <span className="font-bold">
                     {" "}
-                    &#8358; <i>200</i>
+                    &#8358; <i>00.00</i>
                   </span>
                 </p>
                 <p className=" flex items-center justify-between text-sm font-[500]">
                   Delivery Fee{" "}
                   <span className="font-bold">
                     {" "}
-                    &#8358; <i>200</i>
+                    &#8358; <i>{deliveryPrice.toLocaleString()}</i>
                   </span>
                 </p>
               </div>
@@ -190,7 +201,7 @@ function Likes() {
                   Total{" "}
                   <span className="font-bold">
                     {" "}
-                    &#8358; <i>200</i>
+                    &#8358; <i>{totalPrice.toLocaleString()}</i>
                   </span>
                 </p>
                 <button
