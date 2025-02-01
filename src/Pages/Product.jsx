@@ -161,7 +161,12 @@ function Product() {
           <div className=" flex flex-col gap-[20px]">
             {/* cakes section  */}
             <section className=" w-full">
-              <div className="grid md:flex md:flex-wrap grid-cols-2 gap-[20px] pt-[30px]">
+              {cake.length > 0 && (
+                <h1 className="font-extrabold text-[16px]  pt-[30px] pb-[10px]">
+                  Cakes
+                </h1>
+              )}
+              <div className="grid md:flex md:flex-wrap grid-cols-2 gap-[20px] ">
                 {cake.map((product) => (
                   <div
                     className="md:w-[300px] w-[95%] md:mx-0 mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm"
@@ -211,7 +216,12 @@ function Product() {
 
             {/* bread section  */}
             <section className=" w-full">
-              <div className="grid md:flex md:flex-wrap grid-cols-2 gap-[20px] pt-[30px]">
+              {bread.length > 0 && (
+                <h1 className="font-extrabold text-[16px]  pt-[30px] pb-[10px]">
+                  Breads
+                </h1>
+              )}
+              <div className="grid md:flex md:flex-wrap grid-cols-2 gap-[20px] ">
                 {bread.map((product) => (
                   <div
                     className="md:w-[300px] w-[95%] md:mx-0 mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm"
@@ -260,7 +270,12 @@ function Product() {
             </section>
             {/* pastries section  */}
             <section className=" w-full">
-              <div className="grid md:flex md:flex-wrap grid-cols-2 gap-[20px] pt-[30px]">
+              {pastries.length > 0 && (
+                <h1 className="font-extrabold text-[16px]  pt-[30px] pb-[10px]">
+                  Pastries
+                </h1>
+              )}
+              <div className="grid md:flex md:flex-wrap grid-cols-2 gap-[20px] ">
                 {pastries.map((product) => (
                   <div
                     className="md:w-[300px] w-[95%] md:mx-0 mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm"
@@ -310,7 +325,12 @@ function Product() {
 
             {/* decoration section  */}
             <section className=" w-full">
-              <div className="grid md:flex md:flex-wrap grid-cols-2 gap-[20px] pt-[30px]">
+              {decoratons.length > 0 && (
+                <h1 className="font-extrabold text-[16px]  pt-[30px] pb-[10px]">
+                  Decorations
+                </h1>
+              )}
+              <div className="grid md:flex md:flex-wrap grid-cols-2 gap-[20px] ">
                 {decoratons.map((product) => (
                   <div
                     className="md:w-[300px] w-[95%] md:mx-0 mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm"
@@ -360,7 +380,12 @@ function Product() {
 
             {/* gifts section  */}
             <section className=" w-full">
-              <div className="grid md:flex md:flex-wrap grid-cols-2 gap-[20px] pt-[30px]">
+              {gifts.length > 0 && (
+                <h1 className="font-extrabold text-[16px]  pt-[30px] pb-[10px]">
+                  Gifts
+                </h1>
+              )}
+              <div className="grid md:flex md:flex-wrap grid-cols-2 gap-[20px] ">
                 {gifts.map((product) => (
                   <div
                     className="md:w-[300px] w-[95%] md:mx-0 mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm"
