@@ -204,6 +204,7 @@ function Header() {
                       <>
                         <NavLink
                           to="/"
+                          onClick={() => setNav(!nav)}
                           className={({ isActive }) =>
                             isActive ? "   font-bold text-pink-600" : "  "
                           }>
@@ -211,6 +212,7 @@ function Header() {
                         </NavLink>
                         <NavLink
                           to="/about"
+                          onClick={() => setNav(!nav)}
                           className={({ isActive }) =>
                             isActive ? "   font-bold text-pink-600" : "  "
                           }>
@@ -218,6 +220,7 @@ function Header() {
                         </NavLink>
                         <NavLink
                           to="/product"
+                          onClick={() => setNav(!nav)}
                           className={({ isActive }) =>
                             isActive ? "   font-bold text-pink-600" : "  "
                           }>
@@ -225,6 +228,7 @@ function Header() {
                         </NavLink>
                         <NavLink
                           to="/contact"
+                          onClick={() => setNav(!nav)}
                           className={({ isActive }) =>
                             isActive ? "   font-bold text-pink-600" : "  "
                           }>

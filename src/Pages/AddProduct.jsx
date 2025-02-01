@@ -3,8 +3,10 @@ import React, { useRef, useState } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore"; // Firestore functions
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"; // Firebase Storage functions
 import { db, storageF } from "../lib/firebase";
+import { useNavigate } from "react-router-dom";
 
 function AddProduct() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     price: "",
@@ -15,7 +17,7 @@ function AddProduct() {
   });
   const [files, setFiles] = useState([]);
   const imageRef = useRef();
-  const inputRef = useRef(null);
+
   // error and loading
   const [error, setError] = useState(false);
   const [imgError, setImgError] = useState(false);
@@ -116,15 +118,12 @@ function AddProduct() {
         setSucesss(false);
         setProgress(null);
       }, 2000);
+      navigate("/product");
     } catch (e) {
       console.error("Error adding document: ", e);
       setError(true);
       setSucesss(false);
     }
-  };
-
-  const handleFocus = () => {
-    inputRef.current.scrollIntoView({ behaviour: "smooth", block: "end" });
   };
 
   return (
@@ -192,8 +191,6 @@ function AddProduct() {
               onChange={handleChange}
               value={formData.name}
               required
-              onFocus={handleFocus}
-              ref={inputRef}
             />
           </div>
           <div className=" flex flex-col gap-[5px] my-5">
@@ -206,8 +203,6 @@ function AddProduct() {
               id="price"
               value={formData.price}
               required
-              onFocus={handleFocus}
-              ref={inputRef}
             />
           </div>
           <div className=" flex flex-col gap-[5px] my-5">
@@ -219,8 +214,6 @@ function AddProduct() {
               id="category"
               name="category"
               onChange={handleChange}
-              onFocus={handleFocus}
-              ref={inputRef}
               value={formData.category}>
               <option value="" disabled>
                 Select a Category
@@ -253,9 +246,7 @@ function AddProduct() {
               onChange={handleChange}
               rows="10"
               required
-              value={formData.details}
-              onFocus={handleFocus}
-              ref={inputRef}></textarea>
+              value={formData.details}></textarea>
           </div>
 
           <button

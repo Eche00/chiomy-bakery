@@ -161,7 +161,9 @@ function Pastries() {
             </div>
           ))
         ) : (
-          <Loading />
+          <div className=" w-full flex items-center justify-center">
+            <Loading />
+          </div>
         )}
         <div>
           <section className="md:flex hidden items-center justify-center w-full h-full text-pink-600">
@@ -173,7 +175,7 @@ function Pastries() {
       </div>
 
       <div className="flex md:hidden flex-wrap gap-[20px] pt-[30px] items-center">
-        {productsMax.length > 0 ? (
+        {productsMax.length > 0 &&
           productsMax.map((product) => (
             <div
               className="md:w-[300px] w-[90%] md:mx-0 mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm"
@@ -208,10 +210,7 @@ function Pastries() {
                 </section>
               </div>
             </div>
-          ))
-        ) : (
-          <Loading />
-        )}
+          ))}
       </div>
     </div>
   );
