@@ -126,9 +126,9 @@ const SearchPage = () => {
   return (
     <div className="pb-[100px]">
       {loading ? (
-        <p>
+        <section className="py-[100px]">
           <Loading />
-        </p>
+        </section>
       ) : (
         <div className="grid md:flex md:flex-wrap grid-cols-2 gap-[20px] pt-[30px]">
           {products.length > 0 ? (

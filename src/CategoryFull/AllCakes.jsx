@@ -15,6 +15,7 @@ import Loading from "../Components/Loading";
 function AllCakes() {
   const currentUser = auth.currentUser;
   const [products, setProducts] = useState([]);
+  const [productsMax, setProductsMax] = useState([]);
   const [likedProducts, setLikedProducts] = useState(new Set()); // Track liked products by ID
   const navigate = useNavigate();
 
@@ -29,8 +30,13 @@ function AllCakes() {
       const filteredData = productData
         .filter((product) => product.category === "Cake")
         .sort((a, b) => b.createdAt - a.createdAt);
+      const filteredDataMax = productData
+        .filter((product) => product.category === "Cake")
+        .sort((a, b) => b.createdAt - a.createdAt)
+        .slice(0, 4);
 
       setProducts(filteredData);
+      setProductsMax(filteredDataMax);
     });
 
     // Cleanup the listener on unmount
@@ -102,8 +108,8 @@ function AllCakes() {
 
       <div className="overflow-scroll w-full ">
         <div className="flex items-center gap-[10px] overflow-scroll w-fit ">
-          {products.length > 0 &&
-            products.map((product) => (
+          {productsMax.length > 0 &&
+            productsMax.map((product) => (
               <div className="w-fit pt-5 backdrop-blur-sm" key={product.id}>
                 <img
                   className="md:w-[100px] md:h-[100px] w-[50px] h-[50px] object-cover rounded-full"

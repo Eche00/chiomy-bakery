@@ -190,7 +190,7 @@ function Header() {
 
             {/* menu  */}
             <button
-              className=" font-bold text-[24px] sm:hidden flex"
+              className=" font-bold text-[30px] sm:hidden flex px-[5px]"
               onClick={() => setNav(true)}>
               &#9776;
             </button>

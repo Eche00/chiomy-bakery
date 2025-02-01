@@ -32,7 +32,7 @@ function App() {
   return (
     <div className=" h-screen bg-black overflow-hidden">
       {home ? (
-        <div className=" bg-black text-white h-[100vh] relative overflow-hidden">
+        <div className=" bg-black text-white h-[100vh] relative overflow-clip">
           {" "}
           <div className=" flex items-center justify-center gap-[15px] flex-col h-full">
             {/* image section  */}
