@@ -6,6 +6,7 @@ import Decorations from "../Categories/Decorations";
 import Breads from "../Categories/Breads";
 import Pastries from "../Categories/Pastries";
 import PageDetails from "./PageDetails";
+import { ArrowUpward } from "@mui/icons-material";
 
 function Home() {
   const [cakes, setCakes] = useState(true);
@@ -53,6 +54,12 @@ function Home() {
     setBreads(false);
     setDecorations(false);
     setGiftPacks(true);
+  };
+
+  const handleScrollT0Top = (e) => {
+    e.preventDefault();
+    window.scrollTo(0, 0);
+    console.log("hello world");
   };
   return (
     <div>
@@ -117,13 +124,18 @@ function Home() {
         </section>
 
         {/* category section  */}
-        <section>
+        <section className="relative">
           {cakes && <Cakes />}
           {pastries && <Pastries />}
           {breads && <Breads />}
           {decorations && <Decorations />}
           {giftPacks && <GiftPacks />}
           <PageDetails />
+          {/* <button
+            className="pb-[100px] absolute bottom-[-50px] right-0"
+            onClick={handleScrollT0Top}>
+            <ArrowUpward />
+          </button> */}
         </section>
       </div>
     </div>

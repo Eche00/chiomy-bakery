@@ -1,5 +1,6 @@
 import React from "react";
 import { AbtImg2, AbtImg3 } from "../assets";
+import { Facebook, Instagram, WhatsApp } from "@mui/icons-material";
 
 function PageDetails() {
   return (
@@ -249,6 +250,23 @@ function PageDetails() {
               and let us bring your celebrations to life!
             </p>
           </article>
+          <section className=" flex items-center gap-[10px]">
+            <a
+              href=""
+              className=" p-[5px] border-2 rounded-[5px] border-pink-600 hover:scale-[110%] duration-300">
+              <Instagram fontSize="medium" />
+            </a>
+            <a
+              href=""
+              className=" p-[5px] border-2 rounded-[5px] border-pink-600 hover:scale-[110%] duration-300">
+              <Facebook fontSize="medium" />
+            </a>
+            <a
+              href=""
+              className=" p-[5px] border-2 rounded-[5px] border-pink-600 hover:scale-[110%] duration-300">
+              <WhatsApp fontSize="medium" />
+            </a>
+          </section>
         </div>
       </div>
     </div>
