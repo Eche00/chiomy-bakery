@@ -57,6 +57,9 @@ function Invoice() {
             Customer Information -
           </h3>
           <p>
+            <b>Invoice:</b> #{orderId}
+          </p>
+          <p>
             <b>Name:</b> {order.name}
           </p>
           <p>
