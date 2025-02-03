@@ -20,6 +20,7 @@ import AllPastries from "./CategoryFull/AllPastries";
 import AllDecorations from "./CategoryFull/AllDecorations";
 import AllGiftPacks from "./CategoryFull/AllGifts";
 import Checkout from "./Pages/Checkout";
+import InvoicePage from "./Pages/InvoicePage";
 
 function App() {
   const currentUser = auth.currentUser;
@@ -93,6 +94,7 @@ function App() {
                 <Route path="/decoration" element={<AllDecorations />} />
                 <Route path="/gift" element={<AllGiftPacks />} />
                 <Route path="/checkout" element={<Checkout />} />
+                <Route path="/order/:orderId" element={<InvoicePage />} />
               </Route>
               <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />

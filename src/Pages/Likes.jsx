@@ -16,7 +16,7 @@ function Likes() {
   const [likedProducts, setLikedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [deliveryPrice, setDeliveryPrice] = useState(1000);
+  const [deliveryPrice, setDeliveryPrice] = useState(0);
   const [subTotalPrice, setSubTotalPrice] = useState(0);
   const [quantities, setQuantities] = useState({});
   const currentUser = auth.currentUser;
