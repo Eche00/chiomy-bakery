@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import Loading from "../Components/Loading";
 import numeral from "numeral";
@@ -9,7 +9,7 @@ function Invoice() {
   const { orderId } = useParams(); // Extract the orderId from the URL
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const { pathname } = useLocation();
   useEffect(() => {
     // Fetch the order data from Firestore
     const fetchOrder = async () => {
@@ -46,6 +46,22 @@ function Invoice() {
     return <div>Order not found!</div>;
   }
 
+  const completeOrder = (e) => {
+    e.preventDefault();
+    console.log(pathname);
+    try {
+      let number = "+2347041729402";
+      let url =
+        "https://wa.me/" +
+        number +
+        "?text=" +
+        "FullName: " +
+        " " +
+        pathname +
+        "%0a";
+      window.open(url, "_blank").focus();
+    } catch (error) {}
+  };
   return (
     <div className="py-[20px] px-[20px] mb-[100px]">
       <h2 className=" text-center font-bold text-[18px] pb-[20px]">Invoice</h2>
@@ -121,6 +137,12 @@ function Invoice() {
             <p className="font-[600]">
               Total: &#8358; {order.totalPrice.toLocaleString()}
             </p>
+            <button
+              className="bg-pink-600 py-[10px] text-[16px] font-bold text-white rounded-full my-[10px] w-full text-center"
+              onClick={completeOrder}
+              type="submit">
+              Complete Order
+            </button>
           </section>
         </div>
       </div>
