@@ -48,7 +48,9 @@ function Invoice() {
 
   const completeOrder = (e) => {
     e.preventDefault();
-    console.log(pathname);
+    const link = "https://chiomy-bakery.vercel.app" + pathname;
+    console.log(link);
+
     try {
       let number = "+2347041729402";
       let url =
@@ -57,7 +59,7 @@ function Invoice() {
         "?text=" +
         "FullName: " +
         " " +
-        pathname +
+        link +
         "%0a";
       window.open(url, "_blank").focus();
     } catch (error) {}
