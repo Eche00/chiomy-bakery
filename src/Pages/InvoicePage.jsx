@@ -54,13 +54,7 @@ function Invoice() {
     try {
       let number = "+2347041729402";
       let url =
-        "https://wa.me/" +
-        number +
-        "?text=" +
-        "FullName: " +
-        " " +
-        link +
-        "%0a";
+        "https://wa.me/" + number + "?text=" + "Order: " + " " + link + "%0a";
       window.open(url, "_blank").focus();
     } catch (error) {}
   };

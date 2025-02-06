@@ -21,6 +21,7 @@ import AllDecorations from "./CategoryFull/AllDecorations";
 import AllGiftPacks from "./CategoryFull/AllGifts";
 import Checkout from "./Pages/Checkout";
 import InvoicePage from "./Pages/InvoicePage";
+import AllInvoice from "./Pages/AllInvoice";
 
 function App() {
   const currentUser = auth.currentUser;
@@ -95,6 +96,7 @@ function App() {
                 <Route path="/gift" element={<AllGiftPacks />} />
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/order/:orderId" element={<InvoicePage />} />
+                <Route path="/AllInvoice" element={<AllInvoice />} />
               </Route>
               <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
