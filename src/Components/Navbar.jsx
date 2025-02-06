@@ -1,4 +1,4 @@
-import { FavoriteOutlined, Home } from "@mui/icons-material";
+import { FavoriteOutlined, Home, ReceiptRounded } from "@mui/icons-material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -74,6 +74,18 @@ function Navbar() {
             <span className="text-sm">Add</span>
           </NavLink>
         )}
+        <NavLink
+          to="/AllInvoice"
+          className={({ isActive }) =>
+            isActive
+              ? "flex flex-col items-center justify-center   font-bold"
+              : "flex flex-col items-center justify-center  "
+          }>
+          <span className="text-[16px] font-bold">
+            <ReceiptRounded />
+          </span>
+          <span className="text-sm">Invoice</span>
+        </NavLink>
       </nav>
     </div>
   );

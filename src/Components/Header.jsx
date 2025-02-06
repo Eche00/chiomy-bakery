@@ -115,7 +115,15 @@ function Header() {
               }>
               <span className="text-sm">Shop</span>
             </NavLink>
-
+            <NavLink
+              to="/AllInvoice"
+              className={({ isActive }) =>
+                isActive
+                  ? "flex flex-col items-center justify-center   font-bold text-pink-600"
+                  : "flex flex-col items-center justify-center  "
+              }>
+              <span className="text-sm">Invoice</span>
+            </NavLink>
             <NavLink
               to="/contact"
               className={({ isActive }) =>
@@ -125,6 +133,7 @@ function Header() {
               }>
               <span className="text-sm">Contact</span>
             </NavLink>
+
             {user?.email === "echeze00@gmail.com" && (
               <NavLink
                 to="/add"
