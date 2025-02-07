@@ -23,7 +23,7 @@ function SignIn() {
       navigate("/");
     } catch (error) {
       setLoading(false);
-      setError("Invalid user cresidentials");
+      setError("Invalid email or Password");
     }
   };
   // handling if user is logged in
@@ -42,7 +42,7 @@ function SignIn() {
       <main className=" relative flex  items-end h-screen overflow-scroll ">
         <Link
           to="/"
-          className="absolute top-2 left-2 text-white z-50 bg-pink-600 rounded-full py-3  px-[10px]">
+          className="absolute top-2 left-2 text-white z-50 bg-pink-600 rounded-full p-2 flex items-center justify-center">
           <ArrowBackIos fontSize="medium" />
         </Link>
         <img
@@ -83,7 +83,7 @@ function SignIn() {
                   <div role="status">
                     <svg
                       aria-hidden="true"
-                      class="inline w-4 h-4 text-gray-200 animate-spin dark:text-gray-600 fill-pink-600"
+                      className="inline w-4 h-4 text-gray-200 animate-spin dark:text-gray-600 fill-pink-600"
                       viewBox="0 0 100 101"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg">
@@ -96,7 +96,7 @@ function SignIn() {
                         fill="currentFill"
                       />
                     </svg>
-                    <span class="sr-only">Loading...</span>
+                    <span className="sr-only">Loading...</span>
                   </div>
                 ) : (
                   "Sign In"

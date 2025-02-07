@@ -14,7 +14,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { auth, db } from "../lib/firebase";
 import numeral from "numeral";
 import Loading from "../Components/Loading";
@@ -39,7 +39,7 @@ function Productcard() {
 
         // // filtering the db to check for the id which matches the propertyId
         const filteredUser = userData.find(
-          (prop) => prop.id === currentUser.uid
+          (prop) => prop.id === currentUser?.uid
         );
 
         setUser(filteredUser);
@@ -105,7 +105,7 @@ function Productcard() {
         return;
       }
 
-      const userRef = doc(db, "users", currentUser.uid);
+      const userRef = doc(db, "users", currentUser?.uid);
       const userDoc = await getDoc(userRef);
 
       if (!userDoc.exists()) {
@@ -156,6 +156,53 @@ function Productcard() {
     }
   };
 
+  const handleOrder = async (productId) => {
+    try {
+      if (!currentUser) {
+        navigate("/signin");
+        return;
+      }
+
+      const userRef = doc(db, "users", currentUser?.uid);
+      const userDoc = await getDoc(userRef);
+
+      if (!userDoc.exists()) {
+        throw new Error("User document does not exist");
+      }
+
+      // Get the current liked products from Firestore
+      const { likes } = userDoc.data();
+      const isLiked = likes && likes.includes(productId);
+
+      // Toggle like/unlike: If the product is liked, remove it; if it's not liked, add it
+      const updatedLikes = isLiked
+        ? likes.filter((id) => id !== productId) // Remove product from likes
+        : [...likes, productId]; // Add product to likes
+
+      // Update Firestore likes array
+      await updateDoc(userRef, {
+        likes: updatedLikes,
+      });
+
+      // Update the local liked products state
+      setLikedProducts(new Set(updatedLikes));
+
+      navigate("/likes");
+    } catch (error) {
+      console.error("Error toggling like on the product:", error);
+    }
+  };
+
+  const { pathname } = useLocation();
+
+  const handleView = (productId) => {
+    window.scrollTo(0, 0);
+
+    navigate(`/productcard/${productId}`);
+  };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   return (
     <div className="pb-[100px] w-full flex flex-col h-fit md:pt-[100px] pt-[50px] overflow-hidden">
       <div className="bg-black h-fit relative w-full md:pb-[20px]">
@@ -205,8 +252,10 @@ function Productcard() {
                   <Delete />
                 </button>
               )}
-              <button className="bg-pink-600 rounded-[8px] w-full py-2 m-2 text-white text-center">
-                Order
+              <button
+                className="bg-pink-600 rounded-[8px] w-full py-2 m-2 text-white text-center"
+                onClick={() => navigate("/likes")}>
+                Cart
               </button>
               <button
                 onClick={() => handleLike(product[0]?.id)}
@@ -230,32 +279,34 @@ function Productcard() {
             relatedProduct.map((product) => (
               <div
                 className="sm:w-[300px] w-[95%] sm:mx-0 mx-auto bg-pink-600 rounded-[20px] overflow-hidden backdrop-blur-sm"
-                key={product.id}>
+                key={product?.id}>
                 <img
                   className="w-full h-[150px] object-cover sm:h-[250px]"
-                  src={product.imageUrl}
+                  src={product?.imageUrl}
                   alt=""
                 />
 
                 <div className="p-[10px] flex flex-col sm:gap-[10px] gap-[5px]">
                   <p className="sm:text-[20px] text-[16px] font-[600]">
-                    {product.name}
+                    {product?.name}
                   </p>
 
                   <section className="flex justify-between items-center">
                     <i className="text-[14px] sm:text-[20px] font-semibold">
-                      &#8358; {product.price}
+                      &#8358; {Number(product?.price).toLocaleString()}
                     </i>
                     <button
                       className={`absolute top-3 right-2 p-2 rounded-full ${
-                        likedProducts.has(product.id)
+                        likedProducts.has(product?.id)
                           ? "text-red-600  bg-white"
                           : "text-black  bg-white"
                       }`}
-                      onClick={() => handleLike(product.id)}>
+                      onClick={() => handleLike(product?.id)}>
                       <Favorite />
                     </button>
-                    <button className="border-2 border-white shadow-black shadow-sm rounded-[8px] sm:w-[50%] w-[40%] sm:py-2 py-1 m-2 text-white text-center">
+                    <button
+                      className="border-2 border-white shadow-black shadow-sm rounded-[8px] sm:w-[50%] w-[40%] sm:py-2 py-1 m-2 text-white text-center"
+                      onClick={() => handleView(product?.id)}>
                       Order
                     </button>
                   </section>

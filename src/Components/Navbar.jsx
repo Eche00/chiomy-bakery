@@ -19,7 +19,7 @@ function Navbar() {
 
         // // filtering the db to check for the id which matches the propertyId
         const filteredUser = userData.find(
-          (prop) => prop.id === currentUser.uid
+          (prop) => prop.id === currentUser?.uid
         );
 
         setUser(filteredUser);

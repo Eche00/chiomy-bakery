@@ -66,7 +66,7 @@ function AllInvoice() {
     );
   }
   return (
-    <div className="sm:py-[100px]  h-screen overflow-y-scroll sm:px-0 px-2 ">
+    <div className="py-[100px]  h-screen overflow-y-scroll sm:px-0 px-2 ">
       <h2 className=" text-center font-[400] text-[18px] pb-[20px]">Invoice</h2>
       {user?.email === "echeze00@gmail.com" ? (
         <section className=" sm:w-[50%] w-full mx-auto flex flex-col gap-[20px]">
