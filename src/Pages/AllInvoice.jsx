@@ -93,7 +93,7 @@ function AllInvoice() {
             ))
           ) : (
             <p className=" text-center font-[400] text-[16px] pb-[20px]">
-              No order has been made yet
+              No orders has been made yet !!
             </p>
           )}
         </section>
@@ -122,7 +122,7 @@ function AllInvoice() {
             ))
           ) : (
             <p className=" text-center font-[400] text-[16px] pb-[20px] ">
-              You have order yet !{" "}
+              You have no orders yet !{" "}
             </p>
           )}
         </section>

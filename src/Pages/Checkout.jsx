@@ -9,6 +9,7 @@ import {
   getDocs,
   setDoc,
   onSnapshot,
+  updateDoc,
 } from "firebase/firestore";
 import Loading from "../Components/Loading";
 import numeral from "numeral";
@@ -157,6 +158,11 @@ function Checkout() {
     try {
       // Add order to Firestore
       const orderRef = await addDoc(collection(db, "orders"), orderData);
+      // After successful order creation, clear the user's liked items in Firestore
+      const userRef = doc(db, "users", currentUser.uid);
+      await updateDoc(userRef, {
+        likes: [], // Set the liked items to an empty array
+      });
 
       // After successful order creation, navigate to the order confirmation page
       navigate(`/order/${orderRef.id}`);

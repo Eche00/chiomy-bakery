@@ -21,6 +21,9 @@ function Invoice() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   useEffect(() => {
+    if (!currentUser) {
+      navigate("/signin");
+    }
     const userDataRef = collection(db, "users");
     getDocs(userDataRef)
       .then((querySnap) => {

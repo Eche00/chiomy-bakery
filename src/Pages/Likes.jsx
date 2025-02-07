@@ -273,7 +273,9 @@ function Likes() {
           )}
         </div>
       ) : (
-        <Loading />
+        <p className=" text-center font-extrabold text-[18px]">
+          You have no Liked product yet
+        </p>
       )}
     </div>
   );
