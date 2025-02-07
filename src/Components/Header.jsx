@@ -5,6 +5,7 @@ import { auth, db } from "../lib/firebase";
 import { Avatar } from "../assets";
 import { collection, getDocs } from "firebase/firestore";
 import { signOut } from "firebase/auth";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 function Header() {
   const currentUser = auth.currentUser;
@@ -175,11 +176,16 @@ function Header() {
               </>
             ) : (
               <>
-                <button
+                {/* <button
                   className=" py-[5px] px-[10px] border opacity-90 rounded-[5px] max-w-[70%] text-pink-600 border-pink-600 md:flex hidden"
                   onClick={handleSignOut}>
                   <Logout fontSize="small" />
-                </button>{" "}
+                </button>{" "} */}
+                <Link
+                  to="/profile"
+                  className=" py-[5px] px-[10px]  opacity-90 rounded-[5px] max-w-[70%] text-pink-600  md:flex hidden">
+                  <AccountCircleIcon fontSize="large" />
+                </Link>
                 {/* likes  */}
                 <div className=" sm:flex hidden">
                   <NavLink
@@ -242,6 +248,14 @@ function Header() {
                             isActive ? "   font-bold text-pink-600" : "  "
                           }>
                           <span className="text-sm">Contact</span>
+                        </NavLink>
+                        <NavLink
+                          to="/profile"
+                          onClick={() => setNav(!nav)}
+                          className={({ isActive }) =>
+                            isActive ? "   font-bold text-pink-600" : "  "
+                          }>
+                          <span className="text-sm">Profile</span>
                         </NavLink>
                       </>
                     </nav>

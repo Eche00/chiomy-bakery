@@ -22,6 +22,7 @@ import AllGiftPacks from "./CategoryFull/AllGifts";
 import Checkout from "./Pages/Checkout";
 import InvoicePage from "./Pages/InvoicePage";
 import AllInvoice from "./Pages/AllInvoice";
+import Profile from "./Pages/Profile";
 
 function App() {
   const currentUser = auth.currentUser;
@@ -97,6 +98,7 @@ function App() {
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/order/:orderId" element={<InvoicePage />} />
                 <Route path="/AllInvoice" element={<AllInvoice />} />
+                <Route path="/profile" element={<Profile />} />
               </Route>
               <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
