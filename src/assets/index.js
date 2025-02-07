@@ -7,6 +7,7 @@ import Cakes from "./cake.jpg";
 import Pastries from "./pastries.jpg";
 import Gifts from "./gifts.jpg";
 import Contactus from "./contactus.jpg";
+import ProfileImg from "./profile.png";
 
 export {
   Ham,
@@ -18,4 +19,5 @@ export {
   Pastries,
   Gifts,
   Contactus,
+  ProfileImg,
 };

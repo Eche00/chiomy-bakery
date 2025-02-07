@@ -1,4 +1,4 @@
-import { Close, Favorite, Logout, Search } from "@mui/icons-material";
+import { Close, Favorite, Search } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { auth, db } from "../lib/firebase";
@@ -176,11 +176,6 @@ function Header() {
               </>
             ) : (
               <>
-                {/* <button
-                  className=" py-[5px] px-[10px] border opacity-90 rounded-[5px] max-w-[70%] text-pink-600 border-pink-600 md:flex hidden"
-                  onClick={handleSignOut}>
-                  <Logout fontSize="small" />
-                </button>{" "} */}
                 <Link
                   to="/profile"
                   className=" py-[5px] px-[10px]  opacity-90 rounded-[5px] max-w-[70%] text-pink-600  md:flex hidden">
