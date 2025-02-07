@@ -121,7 +121,7 @@ function AllInvoice() {
               </div>
             ))
           ) : (
-            <p className=" text-center font-[400] text-[16px] pb-[20px]">
+            <p className=" text-center font-[400] text-[16px] pb-[20px] ">
               You have order yet !{" "}
             </p>
           )}
