@@ -112,6 +112,11 @@ function SignIn() {
                 Sign up
               </Link>
             </p>
+            <Link
+              to="/forgotpassword"
+              className="text-[10px] font-bold  hover:underline cursor-pointer text-center flex items-center justify-center w-full">
+              Forgot password ?
+            </Link>
           </form>
         </div>
       </main>

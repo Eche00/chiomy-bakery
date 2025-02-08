@@ -23,6 +23,7 @@ import Checkout from "./Pages/Checkout";
 import InvoicePage from "./Pages/InvoicePage";
 import AllInvoice from "./Pages/AllInvoice";
 import Profile from "./Pages/Profile";
+import ForgotPassword from "./Pages/ForgotPassword";
 
 function App() {
   const currentUser = auth.currentUser;
@@ -102,6 +103,7 @@ function App() {
               </Route>
               <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
+              <Route path="/forgotpassword" element={<ForgotPassword />} />
             </Routes>
           </Router>
         </div>
